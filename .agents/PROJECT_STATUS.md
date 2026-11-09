@@ -2,12 +2,12 @@
 Última actualización: 2026-11-09
 
 ## En curso
-- Portfolio: **Gmusic Agent Workbench 0.2.0**
-  (`learning-artifacts/gmusic-agent-workbench/`) con repair loop + RAG NDCG gate.
+- Portfolio: **Gmusic Agent Workbench 0.3.0**
+  repair loop + RAG NDCG gate + trace debugger (HTML/JSON).
 
 ## Bloqueado / Pendiente
 - Cola de repaso opcional: 00/01 entorno (quiz 0/3).
-- Siguiente slice: trace debugger sobre `outputs/evidence/trace.jsonl`.
+- Siguiente slice: live planner (modelo detrás del firewall) o MCP tools.
 
 ## Decisiones vigentes (referencia rápida)
 - Currículo: ok=534 · fail=0 · skip=8.
@@ -18,5 +18,4 @@
 - G1–G7 vigentes.
 
 ## Última verificación conocida
-- Workbench 0.2.0: demo+rag gate pass; regress candidate exit 1; tests 13/13.
-- Push study-jp: commit workbench MVP + RAG slice.
+- Workbench 0.3.0: demo+rag+trace pass; tests 18/18.

@@ -11,9 +11,10 @@ Basado en las superficies del curso: agent loop, tool firewall, traces, workbenc
 ```bash
 cd learning-artifacts/gmusic-agent-workbench
 python3 -m workbench run --demo
-python3 -m workbench run --demo --with-rag-gate
+python3 -m workbench run --demo --with-rag-gate --with-trace-debug
 python3 -m workbench rag-eval
 python3 -m workbench rag-eval --candidate candidate_regress.json  # exit 1
+python3 -m workbench trace-debug
 python3 -m unittest discover -s tests -v
 ```
 
@@ -43,8 +44,13 @@ gmusic-agent-workbench/
 Fixtures en `fixtures/retrieval/` (queries Gmusic: refunds, tuning, cancel).
 Compara baseline vs candidate; falla si alguna query pierde NDCG.
 
+## Trace debugger (0.3.0)
+
+Analiza `outputs/evidence/trace.jsonl`: wall/own time, decisiones de tools,
+anomalías (reject, approval sin consumir, verify rojo) y timeline HTML.
+Opcional: `--baseline` otra traza para detectar regresiones (`more_rejects`).
+
 ## Next slices
 
-- Conectar `agent-trace-debugger` sobre el JSONL
 - MCP tools (`mcp-at-scale`) y jobs durables
 - Live planner con modelo (API key) detrás del mismo firewall

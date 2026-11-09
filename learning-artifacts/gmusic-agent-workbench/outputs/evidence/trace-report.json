@@ -1,0 +1,118 @@
+{
+  "trace": "/Volumes/Juan lizama h/aplicaciones web/curso /Sin t\u00edtulo/learning-artifacts/gmusic-agent-workbench/outputs/evidence/trace.jsonl",
+  "summary": {
+    "schema_version": 1,
+    "event_count": 8,
+    "wall_ms": 143.373,
+    "own_ms_total": 143.373,
+    "tool_count": 4,
+    "verify_count": 2,
+    "by_decision": {
+      "allow": 2,
+      "needs_approval": 1,
+      "reject": 1
+    },
+    "by_tool": {
+      "read_file": 1,
+      "write_file": 3
+    },
+    "outcome": "pass",
+    "anomalies": [
+      {
+        "code": "tool_rejected",
+        "message": "write_file rejected: path not in scope: secrets/token.txt",
+        "index": 5
+      }
+    ],
+    "timeline": [
+      {
+        "index": 0,
+        "kind": "session_start",
+        "ts": "2026-11-09T20:07:38.956392+00:00",
+        "own_ms": 77.976,
+        "label": "start T-GMUSIC-001",
+        "decision": null,
+        "tool": null,
+        "phase": null,
+        "exit_code": null
+      },
+      {
+        "index": 1,
+        "kind": "verify",
+        "ts": "2026-11-09T20:07:39.034368+00:00",
+        "own_ms": 0.636,
+        "label": "verify before exit=1",
+        "decision": null,
+        "tool": null,
+        "phase": "before",
+        "exit_code": 1
+      },
+      {
+        "index": 2,
+        "kind": "tool",
+        "ts": "2026-11-09T20:07:39.035004+00:00",
+        "own_ms": 0.216,
+        "label": "read_file \u2192 allow (app.py)",
+        "decision": "allow",
+        "tool": "read_file",
+        "phase": null,
+        "exit_code": null
+      },
+      {
+        "index": 3,
+        "kind": "tool",
+        "ts": "2026-11-09T20:07:39.035220+00:00",
+        "own_ms": 0.332,
+        "label": "write_file \u2192 needs_approval (app.py)",
+        "decision": "needs_approval",
+        "tool": "write_file",
+        "phase": null,
+        "exit_code": null
+      },
+      {
+        "index": 4,
+        "kind": "tool",
+        "ts": "2026-11-09T20:07:39.035552+00:00",
+        "own_ms": 0.13,
+        "label": "write_file \u2192 allow (app.py)",
+        "decision": "allow",
+        "tool": "write_file",
+        "phase": null,
+        "exit_code": null
+      },
+      {
+        "index": 5,
+        "kind": "tool",
+        "ts": "2026-11-09T20:07:39.035682+00:00",
+        "own_ms": 63.157,
+        "label": "write_file \u2192 reject (secrets/token.txt)",
+        "decision": "reject",
+        "tool": "write_file",
+        "phase": null,
+        "exit_code": null
+      },
+      {
+        "index": 6,
+        "kind": "verify",
+        "ts": "2026-11-09T20:07:39.098839+00:00",
+        "own_ms": 0.926,
+        "label": "verify after exit=0",
+        "decision": null,
+        "tool": null,
+        "phase": "after",
+        "exit_code": 0
+      },
+      {
+        "index": 7,
+        "kind": "session_end",
+        "ts": "2026-11-09T20:07:39.099765+00:00",
+        "own_ms": 0.0,
+        "label": "end outcome=pass",
+        "decision": null,
+        "tool": null,
+        "phase": null,
+        "exit_code": null
+      }
+    ]
+  }
+}
