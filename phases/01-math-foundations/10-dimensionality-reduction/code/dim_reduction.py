@@ -74,11 +74,19 @@ def demo_mnist():
     print("PCA on MNIST digits")
     print("=" * 60)
 
-    from sklearn.datasets import fetch_openml
+    try:
+        from sklearn.datasets import fetch_openml
 
-    mnist = fetch_openml("mnist_784", version=1, as_frame=False, parser="auto")
-    X = mnist.data[:5000].astype(float)
-    y = mnist.target[:5000].astype(int)
+        mnist = fetch_openml("mnist_784", version=1, as_frame=False, parser="liac-arff")
+        X = mnist.data[:5000].astype(float)
+        y = mnist.target[:5000].astype(int)
+    except Exception as exc:
+        print(f"  OpenML MNIST unavailable ({type(exc).__name__}: {exc}); using synthetic 784-d data.")
+        rng = np.random.default_rng(0)
+        n = 5000
+        centers = rng.normal(size=(10, 784))
+        y = rng.integers(0, 10, size=n)
+        X = centers[y] + rng.normal(scale=0.5, size=(n, 784))
 
     pca_50 = PCA(n_components=50)
     X_pca50 = pca_50.fit_transform(X)
@@ -128,8 +136,10 @@ def demo_tsne(X, y):
 
     from sklearn.manifold import TSNE
 
-    pca_pre = PCA(n_components=50)
-    X_pca = pca_pre.fit_transform(X)
+    # Cap samples so the lesson stays interactive on CPU.
+    X_use = X[:1000]
+    pca_pre = PCA(n_components=min(50, X_use.shape[1]))
+    X_pca = pca_pre.fit_transform(X_use)
 
     tsne = TSNE(n_components=2, perplexity=30, random_state=42)
     X_tsne = tsne.fit_transform(X_pca)
@@ -147,8 +157,9 @@ def demo_umap(X, y):
     try:
         from umap import UMAP
 
-        pca_pre = PCA(n_components=50)
-        X_pca = pca_pre.fit_transform(X)
+        X_use = X[:1000]
+        pca_pre = PCA(n_components=min(50, X_use.shape[1]))
+        X_pca = pca_pre.fit_transform(X_use)
 
         reducer = UMAP(n_components=2, n_neighbors=15, min_dist=0.1, random_state=42)
         X_umap = reducer.fit_transform(X_pca)

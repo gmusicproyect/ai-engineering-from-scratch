@@ -307,9 +307,9 @@ def demo_grid_search():
     X_tr, y_tr, X_val, y_val, X_te, y_te = make_data()
 
     param_grid = {
-        "n_estimators": [20, 50, 100],
-        "learning_rate": [0.01, 0.05, 0.1, 0.3],
-        "max_depth": [2, 3, 5],
+        "n_estimators": [20, 50],
+        "learning_rate": [0.05, 0.1, 0.3],
+        "max_depth": [2, 3],
     }
 
     start = time.time()
@@ -347,7 +347,7 @@ def demo_random_search():
         "subsample": ("float", 0.5, 1.0),
     }
 
-    budgets = [10, 25, 50, 100]
+    budgets = [10, 20]
 
     for n_iter in budgets:
         start = time.time()
@@ -360,9 +360,9 @@ def demo_random_search():
     print()
 
     best_params, best_score, _ = random_search(
-        param_distributions, X_tr, y_tr, X_val, y_val, n_iter=100
+        param_distributions, X_tr, y_tr, X_val, y_val, n_iter=20
     )
-    print(f"  Best params (100 trials):")
+    print(f"  Best params (20 trials):")
     for k, v in best_params.items():
         if isinstance(v, float):
             print(f"    {k}: {v:.4f}")
@@ -402,10 +402,10 @@ def demo_bayesian():
         model.fit(X_tr, y_tr)
         return neg_mse(model, X_val, y_val)
 
-    optimizer = SimpleBayesianOptimizer(param_space, n_initial=10, seed=42)
-    best_params, best_score, history = optimizer.optimize(objective, n_iter=50)
+    optimizer = SimpleBayesianOptimizer(param_space, n_initial=5, seed=42)
+    best_params, best_score, history = optimizer.optimize(objective, n_iter=20)
 
-    print(f"  Best params (50 trials):")
+    print(f"  Best params (20 trials):")
     for k, v in best_params.items():
         if isinstance(v, float):
             print(f"    {k}: {v:.4f}")
@@ -433,10 +433,11 @@ def demo_comparison():
 
     X_tr, y_tr, X_val, y_val, X_te, y_te = make_data()
 
+    # Smaller grid so the lesson finishes on CPU within a few minutes.
     param_grid = {
-        "n_estimators": [20, 50, 100],
-        "learning_rate": [0.01, 0.05, 0.1, 0.3],
-        "max_depth": [2, 3, 5],
+        "n_estimators": [20, 50],
+        "learning_rate": [0.05, 0.1, 0.3],
+        "max_depth": [2, 3],
     }
 
     _, grid_score, grid_history = grid_search(param_grid, X_tr, y_tr, X_val, y_val)
@@ -465,7 +466,7 @@ def demo_comparison():
         model.fit(X_tr, y_tr)
         return neg_mse(model, X_val, y_val)
 
-    optimizer = SimpleBayesianOptimizer(param_space, n_initial=10, seed=42)
+    optimizer = SimpleBayesianOptimizer(param_space, n_initial=5, seed=42)
     _, bayes_score, bayes_history = optimizer.optimize(objective, n_iter=n_grid)
 
     print(f"  Budget: {n_grid} evaluations each")
@@ -529,7 +530,7 @@ def demo_optuna():
         return np.mean((model.predict(X_val) - y_val) ** 2)
 
     study = optuna.create_study(direction="minimize")
-    study.optimize(objective, n_trials=50)
+    study.optimize(objective, n_trials=15)
 
     print(f"  Best params:")
     for k, v in study.best_params.items():

@@ -23,32 +23,11 @@ Run:
 from __future__ import annotations
 
 import os
-from typing import Annotated, TypedDict
-
-from langchain_anthropic import ChatAnthropic
-from langchain_core.messages import AnyMessage, HumanMessage
-from langchain_core.tools import tool
-from langgraph.checkpoint.memory import MemorySaver
-from langgraph.graph import END, StateGraph
-from langgraph.graph.message import add_messages
-from langgraph.prebuilt import ToolNode
-from langgraph.types import Command
+from typing import Annotated, Any, TypedDict
 
 
-# State ----------------------------------------------------------------------
-
-
-class State(TypedDict):
-    messages: Annotated[list[AnyMessage], add_messages]
-
-
-# Tools ----------------------------------------------------------------------
-
-
-@tool
-def calculator(expression: str) -> str:
-    """Evaluate a Python arithmetic expression like '2 + 2 * 3'. Returns the
-    result as a string."""
+def _calculator_impl(expression: str) -> str:
+    """Evaluate a Python arithmetic expression like '2 + 2 * 3'."""
     allowed = set("0123456789+-*/(). ")
     if not set(expression) <= allowed:
         return "ERROR: only digits and + - * / ( ) are allowed"
@@ -58,10 +37,8 @@ def calculator(expression: str) -> str:
         return f"ERROR: {exc!r}"
 
 
-@tool
-def web_lookup(query: str) -> str:
-    """Fake web search. Returns canned facts for known queries and 'unknown'
-    otherwise. Stand-in for a real retrieval tool."""
+def _web_lookup_impl(query: str) -> str:
+    """Fake web search for the offline demo."""
     facts = {
         "anthropic headquarters": "Anthropic is headquartered in San Francisco, California.",
         "python release year": "Python was first released in 1991.",
@@ -69,7 +46,49 @@ def web_lookup(query: str) -> str:
     return facts.get(query.strip().lower(), "unknown")
 
 
-TOOLS = [calculator, web_lookup]
+# Live LangGraph imports are optional for the offline path.
+try:
+    from langchain_anthropic import ChatAnthropic
+    from langchain_core.messages import AnyMessage, HumanMessage
+    from langchain_core.tools import tool
+    from langgraph.checkpoint.memory import MemorySaver
+    from langgraph.graph import END, StateGraph
+    from langgraph.graph.message import add_messages
+    from langgraph.prebuilt import ToolNode
+    from langgraph.types import Command
+
+    LANGGRAPH_AVAILABLE = True
+
+    @tool
+    def calculator(expression: str) -> str:
+        """Evaluate a Python arithmetic expression like '2 + 2 * 3'. Returns the
+        result as a string."""
+        return _calculator_impl(expression)
+
+    @tool
+    def web_lookup(query: str) -> str:
+        """Fake web search. Returns canned facts for known queries and 'unknown'
+        otherwise. Stand-in for a real retrieval tool."""
+        return _web_lookup_impl(query)
+
+    TOOLS = [calculator, web_lookup]
+
+    class State(TypedDict):
+        messages: Annotated[list[AnyMessage], add_messages]
+
+except ImportError:
+    LANGGRAPH_AVAILABLE = False
+    TOOLS = []
+    ChatAnthropic = None  # type: ignore
+    AnyMessage = Any  # type: ignore
+    HumanMessage = None  # type: ignore
+    MemorySaver = None  # type: ignore
+    END = None  # type: ignore
+    StateGraph = None  # type: ignore
+    add_messages = None  # type: ignore
+    ToolNode = None  # type: ignore
+    Command = None  # type: ignore
+    State = dict  # type: ignore
 
 
 # Graph ----------------------------------------------------------------------
@@ -167,4 +186,12 @@ def run() -> None:
 
 
 if __name__ == "__main__":
+    if not LANGGRAPH_AVAILABLE or not os.environ.get("ANTHROPIC_API_KEY", "").strip():
+        print("Offline LangGraph lesson check.")
+        print(f"langgraph available: {LANGGRAPH_AVAILABLE}")
+        print(f"calculator('2 + 3 * 4') -> {_calculator_impl('2 + 3 * 4')}")
+        print(f"web_lookup('python release year') -> {_web_lookup_impl('python release year')}")
+        print("Install langgraph + langchain-anthropic and set ANTHROPIC_API_KEY for the live interrupt demo.")
+        print("Offline check passed.")
+        raise SystemExit(0)
     run()

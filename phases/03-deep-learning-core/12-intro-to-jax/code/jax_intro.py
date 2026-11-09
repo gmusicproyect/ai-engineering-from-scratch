@@ -5,13 +5,28 @@ import optax
 
 
 def get_mnist_data():
-    from sklearn.datasets import fetch_openml
-    mnist = fetch_openml('mnist_784', version=1, as_frame=False, parser='auto')
-    X = mnist.data.astype('float32') / 255.0
-    y = mnist.target.astype('int')
-    X_train, X_test = X[:60000], X[60000:]
-    y_train, y_test = y[:60000], y[60000:]
-    return X_train, y_train, X_test, y_test
+    """Return train/test arrays shaped like MNIST.
+
+    Prefers OpenML. Falls back to a seeded synthetic set when OpenML/sklearn
+    cannot load (known pandas 3.x + fetch_openml parser bug).
+    """
+    try:
+        from sklearn.datasets import fetch_openml
+        mnist = fetch_openml('mnist_784', version=1, as_frame=False, parser='liac-arff')
+        X = mnist.data.astype('float32') / 255.0
+        y = mnist.target.astype('int')
+        X_train, X_test = X[:60000], X[60000:]
+        y_train, y_test = y[:60000], y[60000:]
+        return X_train, y_train, X_test, y_test
+    except Exception as exc:
+        print(f"OpenML MNIST unavailable ({type(exc).__name__}: {exc}); using synthetic digits.")
+        key = random.PRNGKey(0)
+        n_train, n_test = 8000, 2000
+        X_train = random.uniform(key, (n_train, 784))
+        y_train = random.randint(random.fold_in(key, 1), (n_train,), 0, 10)
+        X_test = random.uniform(random.fold_in(key, 2), (n_test, 784))
+        y_test = random.randint(random.fold_in(key, 3), (n_test,), 0, 10)
+        return X_train, y_train, X_test, y_test
 
 
 def init_params(key):

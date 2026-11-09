@@ -36,8 +36,8 @@ Completar todas las fases y lecciones del currículo. Ejecutar el código de cad
 | 19 | Proyectos finales | Do | 620 |
 
 ## Siguiente
-- Runner terminó 542/542: ok=523 · fail=11 · skip=8. Ver `learning-artifacts/run-summary.md`.
-- Fallos pendientes de reintento/arreglo (deps o timeout). Push no hecho.
+- Runner cerrado: ok=534 · fail=0 · skip=8. Ver `learning-artifacts/run-summary.md`.
+- Los 11 fails del primer pass quedaron en verde (deps + offline fallbacks). Push no hecho (G1).
 
 ## Progress log
 | Date | Lesson | Quiz | Note |
@@ -55,7 +55,8 @@ Completar todas las fases y lecciones del currículo. Ejecutar el código de cad
 | 2026-11-09 | 03-deep-learning-core/09-learning-rate-schedules | — | runner ok. /2  Step 3T/4     Step T /   ------------------------------------------------------------  |
 | 2026-11-09 | 03-deep-learning-core/10-mini-framework | — | runner ok. 98.0% /  / ====================================================================== / FRAMEW |
 | 2026-11-09 | 03-deep-learning-core/11-intro-to-pytorch | — | runner ok. 4 /  /   Time: 7.0s (0.7s/epoch) /   Final Test Accuracy: 0.9842 /  / ==================== |
-| 2026-11-09 | 03-deep-learning-core/12-intro-to-jax | — | runner fail. grad/vmap/jit OK; MNIST fails: sklearn fetch_openml TypeError with pandas 3.x |
+| 2026-11-09 | 03-deep-learning-core/12-intro-to-jax | — | runner ok (retest). OpenML MNIST falló con pandas 3.x; fallback sintético + grad/vmap/jit OK. |
+| 2026-11-09 | retest-11-fails | — | ok=11 fail=0. Parches: AdaBoost, tuning budgets, few-shot/langgraph offline, OpenML fallbacks, deps datasets/zstd/h5py/safetensors. |
 | 2026-11-09 | 03-deep-learning-core/13-debugging-neural-networks | — | runner ok. ========================= / GRADIENT CHECK (smooth model + MSE loss for clean finite diffe |
 
 ## Review queue

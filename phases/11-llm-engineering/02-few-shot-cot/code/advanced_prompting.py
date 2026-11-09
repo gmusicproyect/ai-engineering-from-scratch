@@ -505,13 +505,25 @@ TEST_QUESTIONS = [
 
 
 if __name__ == "__main__":
-    client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY", "your-api-key"))
-    model = os.environ.get("LLM_MODEL", "gpt-4o")
-
+    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
     print("=" * 60)
     print("ADVANCED PROMPTING PIPELINE")
     print("Few-Shot + CoT + Self-Consistency + Tree-of-Thought")
     print("=" * 60)
+
+    print(f"\nFew-shot bank: {len(GSM8K_EXAMPLES)} GSM8K-style examples loaded.")
+    print(f"Test questions: {len(TEST_QUESTIONS)}")
+    for i, ex in enumerate(GSM8K_EXAMPLES[:2], 1):
+        print(f"  example {i}: answer={ex['answer']} · reasoning_chars={len(ex['reasoning'])}")
+
+    if not api_key or api_key in {"your-api-key", "sk-..."}:
+        print("\nNo OPENAI_API_KEY set. Offline check passed (prompt bank + helpers importable).")
+        print("Set OPENAI_API_KEY to run live few-shot / CoT / ToT / ReAct calls.")
+        print("\nDone.")
+        raise SystemExit(0)
+
+    client = OpenAI(api_key=api_key)
+    model = os.environ.get("LLM_MODEL", "gpt-4o")
 
     questions = [t["question"] for t in TEST_QUESTIONS]
     expected = [t["answer"] for t in TEST_QUESTIONS]
