@@ -1,0 +1,15 @@
+{
+  "roles": {
+    "reader": {
+      "tools": ["read_file", "list_files", "run_tests"]
+    },
+    "repairer": {
+      "tools": ["read_file", "list_files", "write_file", "run_tests"],
+      "requires_approval": ["write_file"]
+    },
+    "admin": {
+      "tools": ["read_file", "list_files", "write_file", "run_tests", "run_shell"],
+      "requires_approval": ["write_file", "run_shell"]
+    }
+  }
+}

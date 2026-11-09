@@ -1,0 +1,11 @@
+{
+  "task_id": "T-GMUSIC-001",
+  "recommendation": "merge_after_review",
+  "evidence": [
+    "trace.jsonl",
+    "audit.json",
+    "verify.json",
+    "cost.json"
+  ],
+  "unresolved_risk": "Patch lives only in disposable outputs/workspace; not merged to product."
+}

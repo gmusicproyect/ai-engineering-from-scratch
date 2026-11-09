@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "task_id": "T-GMUSIC-001",
+  "model_usd": 0.0,
+  "infra_usd": 0.0,
+  "human_review_hours": 0.02,
+  "human_hourly_rate_usd": 20.0,
+  "human_review_usd": 0.4,
+  "attempts": 6,
+  "accepted_outcomes": 1,
+  "cost_per_successful_outcome_usd": 0.4,
+  "accounting_window": "offline-demo"
+}

@@ -1,0 +1,14 @@
+{
+  "before": {
+    "exit_code": 1,
+    "stdout_tail": "",
+    "stderr_tail": "e \"/Volumes/Juan lizama h/aplicaciones web/curso /Sin título/learning-artifacts/gmusic-agent-workbench/outputs/workspace/test_app.py\", line 13, in test_greeting_uses_gmusic_brand\n    self.assertIn(\"Bienvenido a Gmusic Academy\", text)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'Bienvenido a Gmusic Academy' not found in 'Hola JP, bienvenido a Music School'\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+    "command": "python3 -m unittest test_app -v"
+  },
+  "after": {
+    "exit_code": 0,
+    "stdout_tail": "",
+    "stderr_tail": "test_greeting_uses_gmusic_brand (test_app.TestApp.test_greeting_uses_gmusic_brand) ... ok\ntest_health (test_app.TestApp.test_health) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "command": "python3 -m unittest test_app -v"
+  }
+}

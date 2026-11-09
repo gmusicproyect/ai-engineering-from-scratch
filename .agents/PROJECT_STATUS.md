@@ -2,22 +2,23 @@
 Última actualización: 2026-11-09
 
 ## En curso
-- Currículo ejecutado: **ok=534 · fail=0 · skip=8** (542 totales).
-- Los 11 fails del primer pass se resolvieron (deps + offline fallbacks).
+- Portfolio: **Gmusic Agent Workbench MVP 0.1.0** en
+  `learning-artifacts/gmusic-agent-workbench/` (demo + 7 tests verdes).
 
 ## Bloqueado / Pendiente
-- Push no autorizado (G1). Esperando OK explícito de JP.
 - Cola de repaso opcional: 00/01 entorno (quiz 0/3).
 - 8 skips sin entrypoint Python (docs/setup) — no bloquean.
+- Siguiente slice workbench: RAG eval / trace debugger / live planner.
+- Commit/push del workbench: esperar OK de JP (G1).
 
 ## Decisiones vigentes (referencia rápida)
-- Completar el currículo por ejecución de entrypoints, sin quiz y sin pedir OK por lección.
-- Sin push al remoto del autor hasta autorización G1.
-- Commits locales de progreso sí; push no.
+- Currículo: ok=534 · fail=0 · skip=8.
+- `origin` = repo del autor (solo lectura). Estudio en fork `study-jp`.
+- Portfolio principal = Agent Workbench Gmusic (no labs sueltos).
 
 ## Reglas duras activas
 - G1–G7 vigentes.
 
 ## Última verificación conocida
-- Retest de los 11 fails anteriores: **ok=11 fail=0** (2026-11-09).
-- Estado global: ok=534 · fail=0 · skip=8.
+- Workbench: `python3 -m workbench run --demo` → pass; unittest 7/7 OK.
+- Currículo: ok=534 · fail=0 · skip=8.

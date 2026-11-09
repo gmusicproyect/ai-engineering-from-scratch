@@ -1,0 +1,41 @@
+[
+  {
+    "decision": "allow",
+    "request_id": "r1",
+    "tool": "read_file",
+    "args": {
+      "path": "app.py"
+    },
+    "role": "repairer"
+  },
+  {
+    "decision": "needs_approval",
+    "request_id": "r2",
+    "tool": "write_file",
+    "args": {
+      "path": "app.py",
+      "content": "\"\"\"Minimal Gmusic sample surface with a deliberate greeting bug.\"\"\"\n\n\ndef greeting(name: str = \"alumno\") -> str:\n    return f\"Hola {name}, Bienvenido a Gmusic Academy\"\n\n\ndef health() -> dict[str, str]:\n    return {\"status\": \"ok\", \"product\": \"Gmusic Academy\"}\n"
+    },
+    "approval_token": "3be7edba54497dab9b5da392"
+  },
+  {
+    "decision": "allow",
+    "request_id": "r2",
+    "tool": "write_file",
+    "args": {
+      "path": "app.py",
+      "content": "\"\"\"Minimal Gmusic sample surface with a deliberate greeting bug.\"\"\"\n\n\ndef greeting(name: str = \"alumno\") -> str:\n    return f\"Hola {name}, Bienvenido a Gmusic Academy\"\n\n\ndef health() -> dict[str, str]:\n    return {\"status\": \"ok\", \"product\": \"Gmusic Academy\"}\n"
+    },
+    "role": "repairer"
+  },
+  {
+    "decision": "reject",
+    "request_id": "r3",
+    "tool": "write_file",
+    "args": {
+      "path": "secrets/token.txt",
+      "content": "nope"
+    },
+    "reason": "path not in scope: secrets/token.txt"
+  }
+]

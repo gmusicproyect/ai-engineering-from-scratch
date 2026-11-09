@@ -36,8 +36,9 @@ Completar todas las fases y lecciones del currículo. Ejecutar el código de cad
 | 19 | Proyectos finales | Do | 620 |
 
 ## Siguiente
-- Runner cerrado: ok=534 · fail=0 · skip=8. Ver `learning-artifacts/run-summary.md`.
-- Los 11 fails del primer pass quedaron en verde (deps + offline fallbacks). Push no hecho (G1).
+- Portfolio activo: `learning-artifacts/gmusic-agent-workbench` (MVP 0.1.0 verde).
+- Currículo: ok=534 · fail=0 · skip=8. Fork en `study-jp`.
+- Próximo slice workbench: RAG eval o trace debugger.
 
 ## Progress log
 | Date | Lesson | Quiz | Note |
