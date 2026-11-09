@@ -1,0 +1,9 @@
+{
+  "path": "app.py",
+  "content": "\"\"\"Minimal Gmusic sample surface with a deliberate greeting bug.\"\"\"\n\n\ndef greeting(name: str = \"alumno\") -> str:\n    # BUG: wrong product name — workbench demo must repair this.\n    return f\"Hola {name}, Bienvenido a Gmusic Academy\"\n\n\ndef health() -> dict[str, str]:\n    return {\"status\": \"ok\", \"product\": \"Gmusic Academy\"}\n",
+  "rationale": "assertIn expected 'Bienvenido a Gmusic Academy' missing from runtime string; rewrote greeting.",
+  "source": "offline",
+  "model": null,
+  "raw_prompt_tokens": null,
+  "raw_completion_tokens": null
+}

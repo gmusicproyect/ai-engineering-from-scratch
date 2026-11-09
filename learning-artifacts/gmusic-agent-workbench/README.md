@@ -11,7 +11,10 @@ Basado en las superficies del curso: agent loop, tool firewall, traces, workbenc
 ```bash
 cd learning-artifacts/gmusic-agent-workbench
 python3 -m workbench run --demo
-python3 -m workbench run --demo --with-rag-gate --with-trace-debug
+python3 -m workbench run --demo --planner offline --with-rag-gate --with-trace-debug
+python3 -m workbench plan --planner offline
+# Optional live hook (stdlib urllib). Falls back offline if no key / bad response:
+# OPENAI_API_KEY=... python3 -m workbench run --demo --planner live
 python3 -m workbench rag-eval
 python3 -m workbench rag-eval --candidate candidate_regress.json  # exit 1
 python3 -m workbench trace-debug
@@ -50,7 +53,13 @@ Analiza `outputs/evidence/trace.jsonl`: wall/own time, decisiones de tools,
 anomalías (reject, approval sin consumir, verify rojo) y timeline HTML.
 Opcional: `--baseline` otra traza para detectar regresiones (`more_rejects`).
 
+## Live planner (0.4.0)
+
+`workbench/planner.py` propone el patch; el firewall sigue gobernando writes.
+Default `--planner offline` (heurística desde stderr/`task_notes`).
+`--planner live` usa OpenAI-compatible HTTP si hay `OPENAI_API_KEY`; si falla,
+cae a offline. Evidence: `outputs/evidence/plan.json` + evento `plan` en el trace.
+
 ## Next slices
 
 - MCP tools (`mcp-at-scale`) y jobs durables
-- Live planner con modelo (API key) detrás del mismo firewall

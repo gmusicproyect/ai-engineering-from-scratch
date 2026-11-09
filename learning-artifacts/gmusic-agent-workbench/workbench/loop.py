@@ -1,4 +1,4 @@
-"""Offline agent loop: observe → propose → firewall → apply → verify → evidence."""
+"""Agent loop: observe → plan → firewall → apply → verify → evidence."""
 
 from __future__ import annotations
 
@@ -10,21 +10,11 @@ from typing import Any
 
 from workbench.evidence import write_bundle
 from workbench.firewall import Firewall, load_roles
+from workbench.planner import plan_repair
 from workbench.trace import TraceLog
 from workbench.workspace import materialize, resolve_inside
 
 ROOT = Path(__file__).resolve().parent.parent
-FIXED_GREETING = (
-    '"""Minimal Gmusic sample surface with a deliberate greeting bug."""\n'
-    "\n"
-    "\n"
-    "def greeting(name: str = \"alumno\") -> str:\n"
-    "    return f\"Hola {name}, Bienvenido a Gmusic Academy\"\n"
-    "\n"
-    "\n"
-    "def health() -> dict[str, str]:\n"
-    "    return {\"status\": \"ok\", \"product\": \"Gmusic Academy\"}\n"
-)
 
 
 def load_json(path: Path) -> Any:
@@ -35,7 +25,7 @@ def save_json(path: Path, data: Any) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def run_demo(root: Path | None = None) -> dict[str, Any]:
+def run_demo(root: Path | None = None, *, planner_mode: str = "offline") -> dict[str, Any]:
     root = root or ROOT
     fixture = root / "fixtures" / "sample_app"
     out_root = root / "outputs"
@@ -54,7 +44,7 @@ def run_demo(root: Path | None = None) -> dict[str, Any]:
         workspace_root=workspace,
     )
     trace = TraceLog(evidence_dir / "trace.jsonl")
-    trace.emit("session_start", task_id=task["id"], role="repairer")
+    trace.emit("session_start", task_id=task["id"], role="repairer", planner_mode=planner_mode)
 
     state = {
         "schema_version": 1,
@@ -63,6 +53,7 @@ def run_demo(root: Path | None = None) -> dict[str, Any]:
         "active_task_id": task["id"],
         "last_event": "session_start",
         "workspace_path": str(workspace),
+        "planner_mode": planner_mode,
     }
     save_json(root / "agent_state.json", state)
 
@@ -84,12 +75,36 @@ def run_demo(root: Path | None = None) -> dict[str, Any]:
     content = resolve_inside(workspace, "app.py").read_text(encoding="utf-8")
     trace.emit("tool", tool="read_file", path="app.py", bytes=len(content), decision="allow")
 
-    # 3) Attempt write WITHOUT approval — must reject
+    # 3) Plan repair (offline by default; live only if requested + key)
+    steps += 1
+    plan = plan_repair(
+        path="app.py",
+        content=content,
+        stderr=before.get("stderr_tail", ""),
+        task_notes=str(task.get("notes", "")),
+        mode=planner_mode,
+    )
+    trace.emit(
+        "plan",
+        path=plan.path,
+        source=plan.source,
+        model=plan.model,
+        rationale=plan.rationale,
+        prompt_tokens=plan.raw_prompt_tokens,
+        completion_tokens=plan.raw_completion_tokens,
+    )
+    (evidence_dir / "plan.json").write_text(
+        json.dumps(plan.to_dict(), indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    patch_args = {"path": plan.path, "content": plan.content}
+
+    # 4) Attempt write WITHOUT approval — must reject
     steps += 1
     ok, reason = fw.check(
         role="repairer",
         tool="write_file",
-        args={"path": "app.py", "content": FIXED_GREETING},
+        args=patch_args,
         request_id="r2",
     )
     assert not ok and reason.startswith("needs_approval:"), reason
@@ -97,25 +112,25 @@ def run_demo(root: Path | None = None) -> dict[str, Any]:
     trace.emit(
         "tool",
         tool="write_file",
-        path="app.py",
+        path=plan.path,
         decision="needs_approval",
         approval_token=approval_token,
     )
 
-    # 4) Same write WITH approval — must allow and apply
+    # 5) Same write WITH approval — must allow and apply
     steps += 1
     ok, reason = fw.check(
         role="repairer",
         tool="write_file",
-        args={"path": "app.py", "content": FIXED_GREETING},
+        args=patch_args,
         request_id="r2",
         approval_token=approval_token,
     )
     assert ok, reason
-    resolve_inside(workspace, "app.py").write_text(FIXED_GREETING, encoding="utf-8")
-    trace.emit("tool", tool="write_file", path="app.py", decision="allow", applied=True)
+    resolve_inside(workspace, plan.path).write_text(plan.content, encoding="utf-8")
+    trace.emit("tool", tool="write_file", path=plan.path, decision="allow", applied=True)
 
-    # 5) Out-of-scope write must reject
+    # 6) Out-of-scope write must reject
     steps += 1
     ok, reason = fw.check(
         role="repairer",
@@ -124,12 +139,16 @@ def run_demo(root: Path | None = None) -> dict[str, Any]:
         request_id="r3",
         approval_token=None,
     )
-    # Even issuing approval path: first check path before approval for out of scope
-    # Our firewall checks path before approval — should reject immediately.
     assert not ok, "out-of-scope write must fail"
-    trace.emit("tool", tool="write_file", path="secrets/token.txt", decision="reject", reason=reason)
+    trace.emit(
+        "tool",
+        tool="write_file",
+        path="secrets/token.txt",
+        decision="reject",
+        reason=reason,
+    )
 
-    # 6) Verify after
+    # 7) Verify after
     steps += 1
     after = _run_tests(workspace)
     trace.emit("verify", phase="after", **after)
@@ -148,7 +167,7 @@ def run_demo(root: Path | None = None) -> dict[str, Any]:
             else "Acceptance tests still failing; do not merge."
         ),
     )
-    trace.emit("session_end", outcome=outcome, evidence=str(bundle))
+    trace.emit("session_end", outcome=outcome, evidence=str(bundle), planner=plan.source)
 
     state.update({"status": outcome, "last_event": "session_end"})
     save_json(root / "agent_state.json", state)
@@ -164,6 +183,7 @@ def run_demo(root: Path | None = None) -> dict[str, Any]:
         "before_exit": before["exit_code"],
         "after_exit": after["exit_code"],
         "audit_events": len(fw.audit),
+        "planner": plan.to_dict(),
     }
 
 

@@ -15,5 +15,5 @@
 | 04-verify | Done | 7/7 tests | 2026-11-09 | `python3 -m workbench run --demo` |
 | 05-rag-eval | Done | gate ok + regress fails | 2026-11-09 | NDCG release gate wired |
 | 06-trace-debugger | Done | html+json report | 2026-11-09 | anomalies + baseline diff |
-| next-live-planner | Next | | | Model behind same firewall |
-| next-mcp | Planned | | | MCP tools / durable jobs |
+| 07-live-planner | Done | offline+live hook | 2026-11-09 | plan behind firewall |
+| next-mcp | Next | | | MCP tools / durable jobs |

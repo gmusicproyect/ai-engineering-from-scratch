@@ -90,6 +90,8 @@ def summarize(events: list[Event]) -> dict[str, Any]:
 def _label(e: Event) -> str:
     if e.kind == "tool":
         return f"{e.raw.get('tool')} → {e.raw.get('decision')} ({e.raw.get('path', '')})"
+    if e.kind == "plan":
+        return f"plan[{e.raw.get('source')}] {e.raw.get('path')}: {e.raw.get('rationale', '')[:80]}"
     if e.kind == "verify":
         return f"verify {e.raw.get('phase')} exit={e.raw.get('exit_code')}"
     if e.kind == "session_start":

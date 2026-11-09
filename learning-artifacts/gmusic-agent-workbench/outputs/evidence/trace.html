@@ -14,7 +14,7 @@
 <body>
   <h1>Gmusic Trace Debugger</h1>
   <div class="meta">
-    <div>events: 8 · wall_ms: 143.373 · outcome: pass</div>
+    <div>events: 9 · wall_ms: 244.901 · outcome: pass</div>
     <div>decisions: {&quot;allow&quot;: 2, &quot;needs_approval&quot;: 1, &quot;reject&quot;: 1}</div>
   </div>
   <h2>Anomalies</h2>
@@ -23,7 +23,7 @@
   <table>
     <thead><tr><th>#</th><th>kind</th><th>label</th><th>own_ms</th><th>bar</th></tr></thead>
     <tbody>
-      <tr><td>0</td><td>session_start</td><td>start T-GMUSIC-001</td><td>77.976</td><td><div style='height:10px;width:100.0%;background:#555;'></div></td></tr><tr><td>1</td><td>verify</td><td>verify before exit=1</td><td>0.636</td><td><div style='height:10px;width:2.0%;background:#b42318;'></div></td></tr><tr><td>2</td><td>tool</td><td>read_file → allow (app.py)</td><td>0.216</td><td><div style='height:10px;width:2.0%;background:#2f6fed;'></div></td></tr><tr><td>3</td><td>tool</td><td>write_file → needs_approval (app.py)</td><td>0.332</td><td><div style='height:10px;width:2.0%;background:#c47d00;'></div></td></tr><tr><td>4</td><td>tool</td><td>write_file → allow (app.py)</td><td>0.130</td><td><div style='height:10px;width:2.0%;background:#2f6fed;'></div></td></tr><tr><td>5</td><td>tool</td><td>write_file → reject (secrets/token.txt)</td><td>63.157</td><td><div style='height:10px;width:81.0%;background:#b42318;'></div></td></tr><tr><td>6</td><td>verify</td><td>verify after exit=0</td><td>0.926</td><td><div style='height:10px;width:2.0%;background:#0a7a3e;'></div></td></tr><tr><td>7</td><td>session_end</td><td>end outcome=pass</td><td>0.000</td><td><div style='height:10px;width:2.0%;background:#555;'></div></td></tr>
+      <tr><td>0</td><td>session_start</td><td>start T-GMUSIC-001</td><td>152.911</td><td><div style='height:10px;width:100.0%;background:#555;'></div></td></tr><tr><td>1</td><td>verify</td><td>verify before exit=1</td><td>0.774</td><td><div style='height:10px;width:2.0%;background:#b42318;'></div></td></tr><tr><td>2</td><td>tool</td><td>read_file → allow (app.py)</td><td>0.466</td><td><div style='height:10px;width:2.0%;background:#2f6fed;'></div></td></tr><tr><td>3</td><td>plan</td><td>plan[offline] app.py: assertIn expected &#x27;Bienvenido a Gmusic Academy&#x27; missing from runtime string; rew</td><td>0.871</td><td><div style='height:10px;width:2.0%;background:#555;'></div></td></tr><tr><td>4</td><td>tool</td><td>write_file → needs_approval (app.py)</td><td>0.473</td><td><div style='height:10px;width:2.0%;background:#c47d00;'></div></td></tr><tr><td>5</td><td>tool</td><td>write_file → allow (app.py)</td><td>0.091</td><td><div style='height:10px;width:2.0%;background:#2f6fed;'></div></td></tr><tr><td>6</td><td>tool</td><td>write_file → reject (secrets/token.txt)</td><td>86.819</td><td><div style='height:10px;width:56.8%;background:#b42318;'></div></td></tr><tr><td>7</td><td>verify</td><td>verify after exit=0</td><td>2.496</td><td><div style='height:10px;width:2.0%;background:#0a7a3e;'></div></td></tr><tr><td>8</td><td>session_end</td><td>end outcome=pass</td><td>0.000</td><td><div style='height:10px;width:2.0%;background:#555;'></div></td></tr>
     </tbody>
   </table>
 </body>
