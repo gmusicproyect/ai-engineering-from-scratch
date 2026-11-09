@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "enqueued": [
+    {
+      "ok": true,
+      "idempotent": false,
+      "job": {
+        "id": "incident-summary",
+        "payload_hash": "5fd327ccc99b45a877b972aed07b8d7dc48ea6f0c8bdf89307f0e81561165a60",
+        "text": "Student refund delayed after cancel; needs policy cite.",
+        "status": "queued",
+        "version": 1,
+        "attempts": 0,
+        "lease_owner": null,
+        "lease_until_ms": null,
+        "receipt_path": null,
+        "error": null
+      }
+    },
+    {
+      "ok": true,
+      "idempotent": false,
+      "job": {
+        "id": "tuning-faq",
+        "payload_hash": "656cbd0f2d0a8540d3460cd4422fc2f1aa8d4dfdfeed1221e8b92ca356f092a4",
+        "text": "How do I tune guitar strings to standard EADGBE?",
+        "status": "queued",
+        "version": 1,
+        "attempts": 0,
+        "lease_owner": null,
+        "lease_until_ms": null,
+        "receipt_path": null,
+        "error": null
+      }
+    }
+  ],
+  "crash": {
+    "worker_id": "w-crash",
+    "crashed_after": "effect",
+    "processed": [],
+    "hanging_job": {
+      "id": "incident-summary",
+      "payload_hash": "5fd327ccc99b45a877b972aed07b8d7dc48ea6f0c8bdf89307f0e81561165a60",
+      "text": "Student refund delayed after cancel; needs policy cite.",
+      "status": "running",
+      "version": 2,
+      "attempts": 1,
+      "lease_owner": "w-crash",
+      "lease_until_ms": 110,
+      "receipt_path": null,
+      "error": null
+    },
+    "exit_hint": 86
+  },
+  "status_after_crash": {
+    "store": "/Volumes/Juan lizama h/aplicaciones web/curso /Sin t\u00edtulo/learning-artifacts/gmusic-agent-workbench/outputs/job-store",
+    "counts": {
+      "running": 1,
+      "queued": 1
+    },
+    "jobs": [
+      {
+        "id": "incident-summary",
+        "payload_hash": "5fd327ccc99b45a877b972aed07b8d7dc48ea6f0c8bdf89307f0e81561165a60",
+        "text": "Student refund delayed after cancel; needs policy cite.",
+        "status": "running",
+        "version": 2,
+        "attempts": 1,
+        "lease_owner": "w-crash",
+        "lease_until_ms": 110,
+        "receipt_path": null,
+        "error": null
+      },
+      {
+        "id": "tuning-faq",
+        "payload_hash": "656cbd0f2d0a8540d3460cd4422fc2f1aa8d4dfdfeed1221e8b92ca356f092a4",
+        "text": "How do I tune guitar strings to standard EADGBE?",
+        "status": "queued",
+        "version": 1,
+        "attempts": 0,
+        "lease_owner": null,
+        "lease_until_ms": null,
+        "receipt_path": null,
+        "error": null
+      }
+    ]
+  },
+  "recover": {
+    "worker_id": "w-recover",
+    "processed": [
+      {
+        "ok": true,
+        "reused_effect": true,
+        "receipt": {
+          "job_id": "incident-summary",
+          "payload_hash": "5fd327ccc99b45a877b972aed07b8d7dc48ea6f0c8bdf89307f0e81561165a60",
+          "effect_sha256": "b6f37acc58a113120c87a395d09d08f6340424dbd7e68d037bb4515986eeb59c",
+          "bytes": 109,
+          "words": 14,
+          "effect": "Gmusic job receipt\nwords=8\ndigest=5fd327ccc99b\nbody:\nStudent refund delayed after cancel; needs policy cite.\n"
+        },
+        "job": {
+          "id": "incident-summary",
+          "payload_hash": "5fd327ccc99b45a877b972aed07b8d7dc48ea6f0c8bdf89307f0e81561165a60",
+          "text": "Student refund delayed after cancel; needs policy cite.",
+          "status": "completed",
+          "version": 5,
+          "attempts": 2,
+          "lease_owner": null,
+          "lease_until_ms": null,
+          "receipt_path": "/Volumes/Juan lizama h/aplicaciones web/curso /Sin t\u00edtulo/learning-artifacts/gmusic-agent-workbench/outputs/job-store/receipts/incident-summary.json",
+          "error": null
+        }
+      },
+      {
+        "ok": true,
+        "reused_effect": false,
+        "receipt": {
+          "job_id": "tuning-faq",
+          "payload_hash": "656cbd0f2d0a8540d3460cd4422fc2f1aa8d4dfdfeed1221e8b92ca356f092a4",
+          "effect_sha256": "501f7c182c58bff0a6883103ee722d44004e15986f8c9664eb112ffa7184c8b7",
+          "bytes": 102,
+          "words": 15,
+          "effect": "Gmusic job receipt\nwords=9\ndigest=656cbd0f2d0a\nbody:\nHow do I tune guitar strings to standard EADGBE?\n"
+        },
+        "job": {
+          "id": "tuning-faq",
+          "payload_hash": "656cbd0f2d0a8540d3460cd4422fc2f1aa8d4dfdfeed1221e8b92ca356f092a4",
+          "text": "How do I tune guitar strings to standard EADGBE?",
+          "status": "completed",
+          "version": 3,
+          "attempts": 1,
+          "lease_owner": null,
+          "lease_until_ms": null,
+          "receipt_path": "/Volumes/Juan lizama h/aplicaciones web/curso /Sin t\u00edtulo/learning-artifacts/gmusic-agent-workbench/outputs/job-store/receipts/tuning-faq.json",
+          "error": null
+        }
+      }
+    ],
+    "crashed_after": null
+  },
+  "status_final": {
+    "store": "/Volumes/Juan lizama h/aplicaciones web/curso /Sin t\u00edtulo/learning-artifacts/gmusic-agent-workbench/outputs/job-store",
+    "counts": {
+      "completed": 2
+    },
+    "jobs": [
+      {
+        "id": "incident-summary",
+        "payload_hash": "5fd327ccc99b45a877b972aed07b8d7dc48ea6f0c8bdf89307f0e81561165a60",
+        "text": "Student refund delayed after cancel; needs policy cite.",
+        "status": "completed",
+        "version": 5,
+        "attempts": 2,
+        "lease_owner": null,
+        "lease_until_ms": null,
+        "receipt_path": "/Volumes/Juan lizama h/aplicaciones web/curso /Sin t\u00edtulo/learning-artifacts/gmusic-agent-workbench/outputs/job-store/receipts/incident-summary.json",
+        "error": null
+      },
+      {
+        "id": "tuning-faq",
+        "payload_hash": "656cbd0f2d0a8540d3460cd4422fc2f1aa8d4dfdfeed1221e8b92ca356f092a4",
+        "text": "How do I tune guitar strings to standard EADGBE?",
+        "status": "completed",
+        "version": 3,
+        "attempts": 1,
+        "lease_owner": null,
+        "lease_until_ms": null,
+        "receipt_path": "/Volumes/Juan lizama h/aplicaciones web/curso /Sin t\u00edtulo/learning-artifacts/gmusic-agent-workbench/outputs/job-store/receipts/tuning-faq.json",
+        "error": null
+      }
+    ]
+  },
+  "reused_effect": true,
+  "pass": true
+}

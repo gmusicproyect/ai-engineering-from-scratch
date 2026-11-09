@@ -11,9 +11,11 @@ Basado en las superficies del curso: agent loop, tool firewall, traces, workbenc
 ```bash
 cd learning-artifacts/gmusic-agent-workbench
 python3 -m workbench run --demo
-python3 -m workbench run --demo --planner offline --with-rag-gate --with-trace-debug --with-mcp
+python3 -m workbench run --demo --planner offline \
+  --with-rag-gate --with-trace-debug --with-mcp --with-jobs
 python3 -m workbench plan --planner offline
 python3 -m workbench mcp-demo
+python3 -m workbench jobs-demo
 # Stdio MCP-subset server (initialize / tools/list / tools/call):
 # python3 -m workbench mcp-serve
 # Optional live hook (stdlib urllib). Falls back offline if no key / bad response:
@@ -68,5 +70,13 @@ cae a offline. Evidence: `outputs/evidence/plan.json` + evento `plan` en el trac
 
 Subset MCP over newline JSON-RPC: `initialize`, `tools/list`, `tools/call`.
 Tools read-only: `catalog_search`, `get_document`, `rag_compare`, `plan_repair`
-(plan propose only — no writes). Catalog in `fixtures/mcp/catalog.json`.
+(plan propose only — no writes). Catalog in `fixtures/mcp/docs_catalog.json`.
 Evidence: `outputs/evidence/mcp-session.json`. Not full MCP conformance.
+
+## Durable jobs (0.6.0)
+
+Local filesystem queue with stable ids, lease claims, stale reclaim, and
+content-bound receipts. `jobs-demo` crashes after writing the effect, then a
+second worker reclaims and sets `reused_effect: true`. CLI: `jobs-enqueue`,
+`jobs-worker`, `jobs-status`, `jobs-demo`. Store under `outputs/job-store/`.
+Not a distributed queue; local POSIX only.

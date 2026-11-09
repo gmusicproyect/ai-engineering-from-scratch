@@ -17,4 +17,5 @@
 | 06-trace-debugger | Done | html+json report | 2026-11-09 | anomalies + baseline diff |
 | 07-live-planner | Done | offline+live hook | 2026-11-09 | plan behind firewall |
 | 08-mcp-tools | Done | 4 tools + stdio | 2026-11-09 | MCP-subset JSON-RPC |
-| next-durable-jobs | Next | | | queue / lease / retry |
+| 09-durable-jobs | Done | crash+reclaim | 2026-11-09 | lease + reused_effect |
+| next | Ready | | | portfolio polish / real Gmusic task |

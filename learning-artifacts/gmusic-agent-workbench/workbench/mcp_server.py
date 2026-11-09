@@ -15,14 +15,14 @@ from workbench.planner import plan_repair
 from workbench.rag_eval import run_gate
 
 PROTOCOL_VERSION = "2025-06-18"
-SERVER_INFO = {"name": "gmusic-agent-workbench", "version": "0.5.0"}
+SERVER_INFO = {"name": "gmusic-agent-workbench", "version": "0.6.0"}
 
 
 ToolHandler = Callable[[dict[str, Any], Path], Any]
 
 
 def load_catalog(root: Path) -> list[dict[str, Any]]:
-    path = root / "fixtures" / "mcp" / "catalog.json"
+    path = root / "fixtures" / "mcp" / "docs_catalog.json"
     data = json.loads(path.read_text(encoding="utf-8"))
     return list(data["documents"])
 
