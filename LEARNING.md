@@ -36,9 +36,9 @@ Recorrer el currículo fase por fase. En cada lección: entender qué enseña, q
 | 19 | Proyectos finales | Do | 620 |
 
 ## Siguiente
-- Fase 3, lección 02: Redes de varias capas y paso hacia adelante
-- Comando: `.venv/bin/python phases/03-deep-learning-core/02-multi-layer-networks/code/main.py`
-- Docs: `phases/03-deep-learning-core/02-multi-layer-networks/docs/en.md`
+- Fase 3, lección 03: Backpropagation
+- Comando: `.venv/bin/python phases/03-deep-learning-core/03-backpropagation/code/main.py`
+- Docs: `phases/03-deep-learning-core/03-backpropagation/docs/en.md`
 
 ## Progress log
 | Date | Lesson | Quiz | Note |
@@ -46,6 +46,7 @@ Recorrer el currículo fase por fase. En cada lección: entender qué enseña, q
 | 2026-11-09 | 00-setup-and-tooling/01-dev-environment | 0/3 | Stack instalado. Preflight 2/2 PASS. Quiz no aprobado; queda en repaso. |
 | 2026-11-09 | 00-setup-and-tooling/02-git-and-collaboration | — | `.gitignore` ya excluye pesos. Sin push al repo del autor. |
 | 2026-11-09 | 03-deep-learning-core/01-the-perceptron | — | `perceptron.py` exit 0. AND/OR/NOT OK. XOR 1 capa falla. XOR 2 capas OK. |
+| 2026-11-09 | 03-deep-learning-core/02-multi-layer-networks | — | `main.py` exit 0. XOR 2-2-1 OK. Círculo 2-8-1 con pesos aleatorios 17.5%. Forward pass interno trazado. |
 
 ## Review queue
 - 00-setup-and-tooling/01-dev-environment — orden de las cuatro capas, para qué sirve uv, cómo comprobar la GPU
@@ -59,5 +60,6 @@ Hecho el 2026-11-09. El estudio se implementa en el repositorio, sin quiz. Méto
 | Entorno | `.venv` Python 3.12.16, NumPy, Matplotlib, Jupyter, PyTorch 2.15.0. Metal sí. CUDA no. |
 | Preflight | `.venv/bin/python phases/00-setup-and-tooling/01-dev-environment/code/verify.py --route beginner --show-later` → 2/2 PASS |
 | Perceptrón | `.venv/bin/python phases/03-deep-learning-core/01-the-perceptron/code/perceptron.py` → exit 0 |
+| Redes varias capas | `.venv/bin/python phases/03-deep-learning-core/02-multi-layer-networks/code/main.py` → exit 0. XOR resuelto. Círculo sin entrenar 17.5%. |
 | Pantallas Fase 0 | 13 HTML en `learning-artifacts/fase-00-pantalla/` |
 | Protocolo | `.cursor/rules/01-identidad-del-ejecutor.mdc`, `02-protocolo-criterio-fable.mdc`, `loop.mdc` |

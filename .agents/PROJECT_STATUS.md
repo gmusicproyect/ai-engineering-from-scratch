@@ -2,8 +2,9 @@
 Última actualización: 2026-11-09
 
 ## En curso
-- Listo para el siguiente ticket: Fase 3, lección 02 (redes de varias capas).
-- Comando: `.venv/bin/python phases/03-deep-learning-core/02-multi-layer-networks/code/main.py`
+- Fase 3, lección 02 (redes de varias capas) hecha.
+- Siguiente ticket: Fase 3, lección 03 (backpropagation).
+- Comando: `.venv/bin/python phases/03-deep-learning-core/03-backpropagation/code/main.py`
 
 ## Bloqueado / Pendiente
 - Push no autorizado. `origin` = repo del autor. No empujar sin OK de JP.
@@ -27,7 +28,6 @@
 - G7. Borrado de datos, archivos o ramas: confirmación explícita de JP, siempre.
 
 ## Última verificación conocida
-- Preflight beginner `--show-later`: 2/2 required PASS, opcionales PASS, Metal available. Fecha: 2026-11-09.
-- Perceptrón: exit 0. XOR 1 capa falla; 2 capas OK.
-- Pantallas Fase 0: 13 HTML en `learning-artifacts/fase-00-pantalla/`.
-- Workspace ordenado: reglas, estado y registro alineados. Sin push.
+- Lección 02: `main.py` exit 0. XOR 2-2-1 OK. Círculo 2-8-1 random 17.5%. Fecha: 2026-11-09.
+- Perceptrón: exit 0.
+- Preflight beginner: 2/2 PASS, Metal available.
