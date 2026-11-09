@@ -2,24 +2,20 @@
 Última actualización: 2026-11-09
 
 ## En curso
-- Runner continuo de las 542 lecciones: `learning-artifacts/run_curriculum.py` (PID en `run-curriculum.out`).
-- JP autorizó no pedir confirmación por lección.
-- Fase 3: 12/13 ok. Fallo: `12-intro-to-jax` (MNIST/sklearn+pandas). Demos grad/vmap/jit sí corrieron.
+- Runner de las 542 lecciones **terminado**: ok=523 · fail=11 · skip=8.
+- Detalle en `learning-artifacts/run-summary.md` y `run-log.jsonl`.
 
 ## Bloqueado / Pendiente
 - Push no autorizado (G1).
-- JAX MNIST: TypeError en `fetch_openml` con pandas 3.x.
+- 11 lecciones en fail (ver summary). Reintentar o arreglar deps cuando JP lo pida.
 - Cola de repaso: 00/01 entorno (quiz 0/3).
 
 ## Decisiones vigentes (referencia rápida)
-- Completar todas las fases ejecutando el entrypoint Python de cada lección.
-- Log: `learning-artifacts/run-log.jsonl`. Resumen: `learning-artifacts/run-summary.md`.
-- Sin quiz. Sin push.
-- Timeout por lección: 180s. Continúa tras fallos.
+- Completar el currículo por ejecución de entrypoints, sin quiz y sin pedir OK por lección.
+- Sin push al remoto del autor.
 
 ## Reglas duras activas
-- G1–G7 vigentes. Cero push sin OK de JP.
+- G1–G7 vigentes.
 
 ## Última verificación conocida
-- Fase 3 runner: 12 ok, 1 fail. Fecha: 2026-11-09.
-- Curriculum runner: arrancó y avanza desde Fase 0.
+- `run_curriculum.py` cerró 542/542. Exit 1 por los 11 fail. Fecha: 2026-11-09.

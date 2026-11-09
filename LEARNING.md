@@ -36,9 +36,8 @@ Completar todas las fases y lecciones del currículo. Ejecutar el código de cad
 | 19 | Proyectos finales | Do | 620 |
 
 ## Siguiente
-- Runner continuo activo: `learning-artifacts/run_curriculum.py` sobre las 20 fases.
-- Progreso en vivo: `learning-artifacts/run-log.jsonl` y `learning-artifacts/run-summary.md`.
-- Fase 3: 12/13 ok; JAX MNIST bloqueado por sklearn/pandas.
+- Runner terminó 542/542: ok=523 · fail=11 · skip=8. Ver `learning-artifacts/run-summary.md`.
+- Fallos pendientes de reintento/arreglo (deps o timeout). Push no hecho.
 
 ## Progress log
 | Date | Lesson | Quiz | Note |
