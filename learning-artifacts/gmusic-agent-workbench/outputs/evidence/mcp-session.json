@@ -1,0 +1,234 @@
+{
+  "protocolVersion": "2025-06-18",
+  "tool_count": 4,
+  "tool_names": [
+    "catalog_search",
+    "get_document",
+    "rag_compare",
+    "plan_repair"
+  ],
+  "search_is_error": false,
+  "rag_pass": true,
+  "transcript_path_hint": "outputs/evidence/mcp-session.json",
+  "transcript": [
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "initialize",
+        "id": 1,
+        "params": {
+          "protocolVersion": "2025-06-18",
+          "capabilities": {},
+          "clientInfo": {
+            "name": "workbench-demo",
+            "version": "0.5.0"
+          }
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "protocolVersion": "2025-06-18",
+          "capabilities": {
+            "tools": {}
+          },
+          "serverInfo": {
+            "name": "gmusic-agent-workbench",
+            "version": "0.5.0"
+          }
+        }
+      }
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "notifications/initialized",
+        "params": {}
+      },
+      "response": null
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/list",
+        "id": 2,
+        "params": {}
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "result": {
+          "tools": [
+            {
+              "name": "catalog_search",
+              "description": "Search Gmusic docs by query under a character budget.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  },
+                  "max_chars": {
+                    "type": "integer",
+                    "minimum": 40
+                  },
+                  "k": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            },
+            {
+              "name": "get_document",
+              "description": "Fetch one catalog document by id.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            },
+            {
+              "name": "rag_compare",
+              "description": "Run the offline NDCG regression gate for a candidate file.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "candidate": {
+                    "type": "string",
+                    "description": "Filename under fixtures/retrieval/"
+                  },
+                  "k": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "required": []
+              }
+            },
+            {
+              "name": "plan_repair",
+              "description": "Propose a repair plan without writing files.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "stderr": {
+                    "type": "string"
+                  },
+                  "task_notes": {
+                    "type": "string"
+                  },
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "offline",
+                      "live"
+                    ]
+                  }
+                },
+                "required": [
+                  "path",
+                  "content"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "id": 3,
+        "params": {
+          "name": "catalog_search",
+          "arguments": {
+            "query": "refund cancel",
+            "max_chars": 400,
+            "k": 3
+          }
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\"query\": \"refund cancel\", \"max_chars\": 400, \"chars_used\": 379, \"results\": [{\"id\": \"policy-billing\", \"title\": \"Billing and cancellation\", \"text\": \"Cancel a subscription from Cuenta > Facturacion. Access continues until the paid period ends. No charges after a conf...\"}, {\"id\": \"policy-refunds\", \"title\": \"Refund policy\", \"text\": \"Gmusic Academy refunds unused course months within 14 days of purchase. Partial months are not prorated after the fir...\"}]}"
+            }
+          ],
+          "isError": false,
+          "structuredContent": {
+            "query": "refund cancel",
+            "max_chars": 400,
+            "chars_used": 379,
+            "results": [
+              {
+                "id": "policy-billing",
+                "title": "Billing and cancellation",
+                "text": "Cancel a subscription from Cuenta > Facturacion. Access continues until the paid period ends. No charges after a conf..."
+              },
+              {
+                "id": "policy-refunds",
+                "title": "Refund policy",
+                "text": "Gmusic Academy refunds unused course months within 14 days of purchase. Partial months are not prorated after the fir..."
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "id": 4,
+        "params": {
+          "name": "rag_compare",
+          "arguments": {
+            "candidate": "candidate_ok.json"
+          }
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\"pass\": true, \"regressions\": [], \"mean_delta_ndcg\": 0.0, \"evidence_path\": \"/Volumes/Juan lizama h/aplicaciones web/curso /Sin t\u00edtulo/learning-artifacts/gmusic-agent-workbench/outputs/evidence/retrieval-diff.json\"}"
+            }
+          ],
+          "isError": false,
+          "structuredContent": {
+            "pass": true,
+            "regressions": [],
+            "mean_delta_ndcg": 0.0,
+            "evidence_path": "/Volumes/Juan lizama h/aplicaciones web/curso /Sin t\u00edtulo/learning-artifacts/gmusic-agent-workbench/outputs/evidence/retrieval-diff.json"
+          }
+        }
+      }
+    }
+  ]
+}

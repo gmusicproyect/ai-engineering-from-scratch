@@ -11,8 +11,11 @@ Basado en las superficies del curso: agent loop, tool firewall, traces, workbenc
 ```bash
 cd learning-artifacts/gmusic-agent-workbench
 python3 -m workbench run --demo
-python3 -m workbench run --demo --planner offline --with-rag-gate --with-trace-debug
+python3 -m workbench run --demo --planner offline --with-rag-gate --with-trace-debug --with-mcp
 python3 -m workbench plan --planner offline
+python3 -m workbench mcp-demo
+# Stdio MCP-subset server (initialize / tools/list / tools/call):
+# python3 -m workbench mcp-serve
 # Optional live hook (stdlib urllib). Falls back offline if no key / bad response:
 # OPENAI_API_KEY=... python3 -m workbench run --demo --planner live
 python3 -m workbench rag-eval
@@ -20,6 +23,7 @@ python3 -m workbench rag-eval --candidate candidate_regress.json  # exit 1
 python3 -m workbench trace-debug
 python3 -m unittest discover -s tests -v
 ```
+
 
 ## What the demo proves
 
@@ -60,6 +64,9 @@ Default `--planner offline` (heurística desde stderr/`task_notes`).
 `--planner live` usa OpenAI-compatible HTTP si hay `OPENAI_API_KEY`; si falla,
 cae a offline. Evidence: `outputs/evidence/plan.json` + evento `plan` en el trace.
 
-## Next slices
+## MCP tools (0.5.0)
 
-- MCP tools (`mcp-at-scale`) y jobs durables
+Subset MCP over newline JSON-RPC: `initialize`, `tools/list`, `tools/call`.
+Tools read-only: `catalog_search`, `get_document`, `rag_compare`, `plan_repair`
+(plan propose only — no writes). Catalog in `fixtures/mcp/catalog.json`.
+Evidence: `outputs/evidence/mcp-session.json`. Not full MCP conformance.

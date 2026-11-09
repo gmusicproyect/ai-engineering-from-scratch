@@ -1,13 +1,15 @@
-"""CLI: python3 -m workbench run --demo | rag-eval | trace-debug | plan"""
+"""CLI: run | rag-eval | trace-debug | plan | mcp-serve | mcp-demo"""
 
 from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 
 from workbench.loop import run_demo
+from workbench.mcp_server import run_inprocess_session, serve_stdio
 from workbench.planner import plan_repair
 from workbench.rag_eval import run_gate
 from workbench.trace_debug import debug_trace, run_on_workbench
@@ -20,14 +22,10 @@ def main(argv: list[str] | None = None) -> int:
 
     run_p = sub.add_parser("run", help="Run an agent session")
     run_p.add_argument("--demo", action="store_true", help="Offline repair demo")
-    run_p.add_argument(
-        "--planner",
-        choices=("offline", "live"),
-        default="offline",
-        help="offline heuristic (default) or live model hook if OPENAI_API_KEY is set",
-    )
+    run_p.add_argument("--planner", choices=("offline", "live"), default="offline")
     run_p.add_argument("--with-rag-gate", action="store_true")
     run_p.add_argument("--with-trace-debug", action="store_true")
+    run_p.add_argument("--with-mcp", action="store_true", help="Also run MCP in-process session")
     run_p.add_argument("--root", type=Path, default=default_root)
 
     rag_p = sub.add_parser("rag-eval", help="Compare baseline vs candidate rankings")
@@ -44,11 +42,18 @@ def main(argv: list[str] | None = None) -> int:
     plan_p.add_argument("--planner", choices=("offline", "live"), default="offline")
     plan_p.add_argument("--root", type=Path, default=default_root)
 
+    sub.add_parser("mcp-serve", help="Serve MCP-subset JSON-RPC on stdio").add_argument(
+        "--root", type=Path, default=default_root
+    )
+
+    mcp_demo = sub.add_parser("mcp-demo", help="In-process MCP initialize/list/call session")
+    mcp_demo.add_argument("--root", type=Path, default=default_root)
+
     args = parser.parse_args(argv)
 
     if args.cmd == "run":
         if not args.demo:
-            print("Only --demo is implemented in MVP 0.4.x", file=sys.stderr)
+            print("Only --demo is implemented in MVP 0.5.x", file=sys.stderr)
             return 2
         result = run_demo(args.root, planner_mode=args.planner)
         print(json.dumps(result, indent=2))
@@ -85,6 +90,8 @@ def main(argv: list[str] | None = None) -> int:
                     indent=2,
                 )
             )
+        if args.with_mcp:
+            code = _write_mcp_session(args.root, code)
         return code
 
     if args.cmd == "rag-eval":
@@ -108,9 +115,6 @@ def main(argv: list[str] | None = None) -> int:
         fixture = args.root / "fixtures" / "sample_app" / "app.py"
         board = json.loads((args.root / "task_board.json").read_text(encoding="utf-8"))
         task = next(t for t in board["tasks"] if t["id"] == board["active_task_id"])
-        # Simulate failing stderr from a dry unittest when possible.
-        import subprocess
-
         proc = subprocess.run(
             [sys.executable, "-m", "unittest", "test_app", "-v"],
             cwd=args.root / "fixtures" / "sample_app",
@@ -128,7 +132,27 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(plan.to_dict(), indent=2, ensure_ascii=False))
         return 0
 
+    if args.cmd == "mcp-serve":
+        return serve_stdio(args.root)
+
+    if args.cmd == "mcp-demo":
+        return _write_mcp_session(args.root, 0)
+
     return 2
+
+
+def _write_mcp_session(root: Path, code: int) -> int:
+    session = run_inprocess_session(root)
+    out = root / "outputs" / "evidence" / "mcp-session.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    # Drop bulky transcript duplication in printed summary.
+    summary = {k: v for k, v in session.items() if k != "transcript"}
+    out.write_text(json.dumps(session, indent=2) + "\n", encoding="utf-8")
+    print("\nMCP session:")
+    print(json.dumps({**summary, "evidence_path": str(out)}, indent=2))
+    if session.get("search_is_error") or not session.get("rag_pass"):
+        return 1
+    return code
 
 
 if __name__ == "__main__":

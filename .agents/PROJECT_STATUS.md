@@ -2,12 +2,12 @@
 Última actualización: 2026-11-09
 
 ## En curso
-- Portfolio: **Gmusic Agent Workbench 0.4.0**
-  repair loop + RAG gate + trace debugger + planner (offline/live hook).
+- Portfolio: **Gmusic Agent Workbench 0.5.0**
+  repair + RAG + traces + planner + MCP-subset tools.
 
 ## Bloqueado / Pendiente
 - Cola de repaso opcional: 00/01 entorno (quiz 0/3).
-- Siguiente slice: MCP tools / durable jobs.
+- Siguiente slice: durable jobs (queue / lease / retry).
 
 ## Decisiones vigentes (referencia rápida)
 - Currículo: ok=534 · fail=0 · skip=8.
@@ -18,4 +18,4 @@
 - G1–G7 vigentes.
 
 ## Última verificación conocida
-- Workbench 0.4.0: demo+rag+trace pass; tests 23/23.
+- Workbench 0.5.0: mcp-demo pass; tests 29/29.

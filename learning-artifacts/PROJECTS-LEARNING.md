@@ -16,4 +16,5 @@
 | 05-rag-eval | Done | gate ok + regress fails | 2026-11-09 | NDCG release gate wired |
 | 06-trace-debugger | Done | html+json report | 2026-11-09 | anomalies + baseline diff |
 | 07-live-planner | Done | offline+live hook | 2026-11-09 | plan behind firewall |
-| next-mcp | Next | | | MCP tools / durable jobs |
+| 08-mcp-tools | Done | 4 tools + stdio | 2026-11-09 | MCP-subset JSON-RPC |
+| next-durable-jobs | Next | | | queue / lease / retry |
