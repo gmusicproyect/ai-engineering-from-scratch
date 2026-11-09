@@ -2,9 +2,9 @@
 Última actualización: 2026-11-09
 
 ## En curso
-- Fase 3, lección 02 (redes de varias capas) hecha.
-- Siguiente ticket: Fase 3, lección 03 (backpropagation).
-- Comando: `.venv/bin/python phases/03-deep-learning-core/03-backpropagation/code/main.py`
+- Fase 3, lección 03 (backpropagation) hecha.
+- Siguiente ticket: Fase 3, lección 04 (funciones de activación).
+- Comando: `.venv/bin/python phases/03-deep-learning-core/04-activation-functions/code/main.py`
 
 ## Bloqueado / Pendiente
 - Push no autorizado. `origin` = repo del autor. No empujar sin OK de JP.
@@ -28,6 +28,6 @@
 - G7. Borrado de datos, archivos o ramas: confirmación explícita de JP, siempre.
 
 ## Última verificación conocida
-- Lección 02: `main.py` exit 0. XOR 2-2-1 OK. Círculo 2-8-1 random 17.5%. Fecha: 2026-11-09.
+- Lección 03: `main.py` exit 0. XOR loss ~1.07→0.003. Círculo 70%→100%. Fecha: 2026-11-09.
+- Lección 02: exit 0. XOR 2-2-1 OK.
 - Perceptrón: exit 0.
-- Preflight beginner: 2/2 PASS, Metal available.
