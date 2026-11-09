@@ -101,8 +101,13 @@ function listScreens(dir) {
     } catch {}
     return { name, title: screenTitle(full, name), mtime };
   });
-  rows.sort((a, b) => a.mtime - b.mtime || a.name.localeCompare(b.name));
+  rows.sort((a, b) => screenOrder(a.name) - screenOrder(b.name) || a.name.localeCompare(b.name));
   return rows;
+}
+
+function screenOrder(name) {
+  const m = /^(\d+)/.exec(name);
+  return m ? parseInt(m[1], 10) : 9999;
 }
 
 export function readEvents(dir, { all = false } = {}) {
@@ -691,7 +696,7 @@ export function createServer(opts = {}) {
           const st = fs.statSync(full);
           return { name, mtime: st.mtimeMs, size: st.size };
         })
-        .sort((a, b) => a.mtime - b.mtime || a.name.localeCompare(b.name));
+        .sort((a, b) => screenOrder(a.name) - screenOrder(b.name) || a.name.localeCompare(b.name));
     } catch {
       rows = [];
     }

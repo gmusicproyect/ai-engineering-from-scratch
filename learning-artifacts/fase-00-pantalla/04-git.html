@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git y colaboración</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+(function () {
+  function apply() {
+    var t = localStorage.getItem('theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  }
+  apply();
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'theme' || e.key === null) apply();
+  });
+})();
+</script>
+<style>
+:root {
+  --bg:#fafaf5; --bg-surface:#f3f1e8; --ink:#1a1a1a; --ink-soft:#4a4a4a;
+  --ink-mute:#7a7a78; --rule:rgba(26,26,26,.16); --blue:#3553ff;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --font-body:'Source Serif 4',Georgia,serif;
+}
+[data-theme="dark"] {
+  --bg:#0a0d1a; --bg-surface:#131830; --ink:#e8e6dc; --ink-soft:#a8a6a0;
+  --ink-mute:#7a7878; --rule:rgba(232,230,220,.18); --blue:#6b8eff;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); font-size:1.05rem; line-height:1.55; }
+main { max-width:760px; margin:0 auto; padding:28px 22px 64px; }
+.ceja { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); }
+h1 { font-size:2rem; line-height:1.2; margin:.3em 0 .4em; }
+.gancho { font-size:1.2rem; color:var(--ink-soft); margin-top:0; }
+h2 { font-size:1.25rem; margin:1.4em 0 .4em; }
+p { margin:.55em 0; }
+ul, ol { padding-left:1.2em; }
+li { margin:.25em 0; }
+pre {
+  background:var(--bg-surface); border:1px solid var(--rule); padding:12px 14px;
+  overflow-x:auto; font-family:var(--font-mono); font-size:.82rem; line-height:1.45;
+}
+code { font-family:var(--font-mono); font-size:.9em; }
+table { border-collapse:collapse; width:100%; margin:.8em 0; font-size:.95rem; }
+th, td { border-bottom:1px solid var(--rule); text-align:left; padding:6px 8px; vertical-align:top; }
+th { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-mute); font-weight:500; }
+.sigue { margin-top:2em; padding-top:1em; border-top:1px solid var(--rule); color:var(--ink-soft); }
+</style>
+</head>
+<body>
+<main>
+<p class="ceja">Fase 0 · Lección 2 de 13 · Aprender · unos 30 min</p>
+<h1>Git y colaboración</h1>
+
+<p class="gancho">Sin historial vas a perder trabajo. Cada experimento de este curso se guarda.</p>
+<h2>El problema</h2>
+<p>Vas a escribir cientos de archivos en 20 fases. Sin control de versiones no puedes deshacer un cambio, ni ver cómo creció el proyecto, ni trabajar con otra persona.</p>
+<p>Git es la herramienta. GitHub es donde vive el código. Esta lección cubre lo que hace falta para el curso.</p>
+<h2>La idea</h2>
+<p>El cambio pasa por cuatro sitios, en este orden:</p>
+<ol>
+<li>Directorio de trabajo: los archivos que editas.</li>
+<li>Área de preparación: lo que eliges guardar, con <code>git add</code>.</li>
+<li>Repositorio local: la foto del cambio, con <code>git commit</code>.</li>
+<li>Remoto, en GitHub: la copia de respaldo, con <code>git push</code>.</li>
+</ol>
+<p>Tres hábitos: guarda a menudo, empuja al remoto, y abre una rama cuando el cambio es un experimento.</p>
+<h2>Hazlo</h2>
+<p>Identidad, una sola vez:</p>
+<pre>git config --global user.name "Tu nombre"
+git config --global user.email "tu@correo.com"</pre>
+<p>El día a día:</p>
+<pre>git status
+git add archivo.py
+git commit -m "Agrega la implementación del perceptrón"
+git push origin main</pre>
+<p>Una rama para probar sin romper la línea principal:</p>
+<pre>git checkout -b experimento/nuevo-optimizador
+git checkout main
+git merge experimento/nuevo-optimizador</pre>
+<p>Este repositorio del curso no acepta tus envíos directos. En GitHub se hace un fork, se clona esa copia y el progreso va en una rama propia:</p>
+<pre>git checkout -b mi-progreso
+git push origin mi-progreso</pre>
+<h2>Los comandos que alcanzan</h2>
+<table>
+<tr><th>Comando</th><th>Cuándo</th></tr>
+<tr><td><code>git clone</code></td><td>Traer el repositorio</td></tr>
+<tr><td><code>git add</code> y <code>git commit</code></td><td>Guardar el trabajo</td></tr>
+<tr><td><code>git push</code></td><td>Respaldarlo en GitHub</td></tr>
+<tr><td><code>git checkout -b</code></td><td>Probar sin tocar main</td></tr>
+<tr><td><code>git log --oneline</code></td><td>Ver qué se ha hecho</td></tr>
+</table>
+<p>Para este curso no hacen falta rebase, cherry-pick ni submódulos. Un <code>.gitignore</code> debe dejar fuera los pesos grandes: <code>*.pt</code>, <code>*.pth</code>, <code>*.safetensors</code>.</p>
+
+<p class="sigue">Siguiente: GPU y la nube. El botón Siguiente está arriba a la derecha.</p>
+</main>
+</body>
+</html>

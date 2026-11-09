@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entornos de Python</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+(function () {
+  function apply() {
+    var t = localStorage.getItem('theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  }
+  apply();
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'theme' || e.key === null) apply();
+  });
+})();
+</script>
+<style>
+:root {
+  --bg:#fafaf5; --bg-surface:#f3f1e8; --ink:#1a1a1a; --ink-soft:#4a4a4a;
+  --ink-mute:#7a7a78; --rule:rgba(26,26,26,.16); --blue:#3553ff;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --font-body:'Source Serif 4',Georgia,serif;
+}
+[data-theme="dark"] {
+  --bg:#0a0d1a; --bg-surface:#131830; --ink:#e8e6dc; --ink-soft:#a8a6a0;
+  --ink-mute:#7a7878; --rule:rgba(232,230,220,.18); --blue:#6b8eff;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); font-size:1.05rem; line-height:1.55; }
+main { max-width:760px; margin:0 auto; padding:28px 22px 64px; }
+.ceja { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); }
+h1 { font-size:2rem; line-height:1.2; margin:.3em 0 .4em; }
+.gancho { font-size:1.2rem; color:var(--ink-soft); margin-top:0; }
+h2 { font-size:1.25rem; margin:1.4em 0 .4em; }
+p { margin:.55em 0; }
+ul, ol { padding-left:1.2em; }
+li { margin:.25em 0; }
+pre {
+  background:var(--bg-surface); border:1px solid var(--rule); padding:12px 14px;
+  overflow-x:auto; font-family:var(--font-mono); font-size:.82rem; line-height:1.45;
+}
+code { font-family:var(--font-mono); font-size:.9em; }
+table { border-collapse:collapse; width:100%; margin:.8em 0; font-size:.95rem; }
+th, td { border-bottom:1px solid var(--rule); text-align:left; padding:6px 8px; vertical-align:top; }
+th { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-mute); font-weight:500; }
+.sigue { margin-top:2em; padding-top:1em; border-top:1px solid var(--rule); color:var(--ink-soft); }
+</style>
+</head>
+<body>
+<main>
+<p class="ceja">Fase 0 · Lección 6 de 13 · Construir · unos 30 min</p>
+<h1>Entornos de Python</h1>
+
+<p class="gancho">El infierno de dependencias es real. El entorno virtual es el remedio.</p>
+<h2>El problema</h2>
+<p>Un proyecto pide PyTorch 2.4. Otro pide PyTorch 2.1 porque su build de CUDA está fijo. Si instalas en el Python del sistema, subir uno rompe el otro. En aprendizaje automático pasa seguido: cada marco trae su CUDA, las librerías clavan versiones, y un <code>pip install</code> global pisa lo que había.</p>
+<h2>La idea</h2>
+<p>Cada proyecto tiene su propia carpeta de paquetes. El proyecto A puede tener torch 2.4 y el proyecto B torch 2.1, y no se ven.</p>
+<p>Este curso ya tiene el suyo: <code>.venv</code>, con Python 3.12.16, NumPy, Matplotlib, Jupyter y PyTorch 2.15. Se activa así:</p>
+<pre>source .venv/bin/activate</pre>
+<p>El prompt cambia y <code>which python</code> apunta dentro de <code>.venv</code>. Para salir: <code>deactivate</code>.</p>
+<h2>Con uv</h2>
+<pre>uv venv
+source .venv/bin/activate
+uv pip install torch numpy</pre>
+<p><code>uv init</code> crea un proyecto con <code>pyproject.toml</code>. <code>uv add torch numpy</code> instala y deja un archivo de bloqueo, para que otra máquina instale las mismas versiones.</p>
+<h2>Errores típicos</h2>
+<ul>
+<li>Instalar en el Python global y creer que el proyecto está aislado.</li>
+<li>Mezclar pip y conda en el mismo entorno.</li>
+<li>Un PyTorch compilado para una CUDA más nueva que el driver de la máquina.</li>
+</ul>
+
+<p class="sigue">Siguiente: Docker para IA. El botón Siguiente está arriba a la derecha.</p>
+</main>
+</body>
+</html>

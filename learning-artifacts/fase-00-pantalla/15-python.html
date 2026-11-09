@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python para ingeniería de IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+(function () {
+  function apply() {
+    var t = localStorage.getItem('theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  }
+  apply();
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'theme' || e.key === null) apply();
+  });
+})();
+</script>
+<style>
+:root {
+  --bg:#fafaf5; --bg-surface:#f3f1e8; --ink:#1a1a1a; --ink-soft:#4a4a4a;
+  --ink-mute:#7a7a78; --rule:rgba(26,26,26,.16); --blue:#3553ff;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --font-body:'Source Serif 4',Georgia,serif;
+}
+[data-theme="dark"] {
+  --bg:#0a0d1a; --bg-surface:#131830; --ink:#e8e6dc; --ink-soft:#a8a6a0;
+  --ink-mute:#7a7878; --rule:rgba(232,230,220,.18); --blue:#6b8eff;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); font-size:1.05rem; line-height:1.55; }
+main { max-width:760px; margin:0 auto; padding:28px 22px 64px; }
+.ceja { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); }
+h1 { font-size:2rem; line-height:1.2; margin:.3em 0 .4em; }
+.gancho { font-size:1.2rem; color:var(--ink-soft); margin-top:0; }
+h2 { font-size:1.25rem; margin:1.4em 0 .4em; }
+p { margin:.55em 0; }
+ul, ol { padding-left:1.2em; }
+li { margin:.25em 0; }
+pre {
+  background:var(--bg-surface); border:1px solid var(--rule); padding:12px 14px;
+  overflow-x:auto; font-family:var(--font-mono); font-size:.82rem; line-height:1.45;
+}
+code { font-family:var(--font-mono); font-size:.9em; }
+table { border-collapse:collapse; width:100%; margin:.8em 0; font-size:.95rem; }
+th, td { border-bottom:1px solid var(--rule); text-align:left; padding:6px 8px; vertical-align:top; }
+th { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-mute); font-weight:500; }
+.sigue { margin-top:2em; padding-top:1em; border-top:1px solid var(--rule); color:var(--ink-soft); }
+</style>
+</head>
+<body>
+<main>
+<p class="ceja">Fase 0 · Lección 13 de 13 · Construir · unos 120 min</p>
+<h1>Python para ingeniería de IA</h1>
+
+<p class="gancho">El resto del curso usa un puñado de formas de escribir Python. Se aprenden aquí, antes de que la matemática dependa de ellas.</p>
+<h2>El problema</h2>
+<p>De los archivos Python de las lecciones, casi todos definen funciones, usan f-strings y el bloque <code>if __name__ == "__main__"</code>. Cientos importan <code>dataclasses</code> y fijan la semilla con <code>random</code>. Si eso es nuevo, lees sintaxis cuando querías leer la cuenta.</p>
+<p>Además, Python puede dar un resultado mal sin avisar. Dos nombres pueden apuntar a la misma lista. Un argumento por defecto recuerda su valor entre llamadas. Un generador queda vacío después de un recorrido, y la segunda época de entrenamiento no ve datos.</p>
+<h2>Los nombres apuntan a objetos</h2>
+<p>Asignar no copia. Si dos nombres apuntan a una lista, cambiarla por uno se ve en el otro. Los números, las cadenas y las tuplas no cambian, así que ahí no duele. Las listas, los diccionarios y los conjuntos sí: cuando hace falta una copia independiente, se copia.</p>
+<h2>Lista contra arreglo</h2>
+<p>Una lista de Python guarda punteros a objetos. Un arreglo de NumPy guarda los números juntos, en un solo bloque. En la prueba del curso, un bucle puro sobre un millón de floats tardó unos 30 milisegundos. NumPy hizo el mismo producto punto en menos de 1. Por eso el curso escribe la idea en un bucle claro y después la misma operación como arreglo.</p>
+<h2>Lista contra generador</h2>
+<p>La lista construye todos los elementos antes de seguir. El generador construye uno cada vez que se lo piden, y solo se puede recorrer una vez. Cada época de entrenamiento necesita un generador nuevo.</p>
+<p>Esta lección es la más larga de la fase, unos 120 minutos. El código está en <code>phases/00-setup-and-tooling/13-python-for-ai-engineering/code/</code> y se corre con el Python de <code>.venv</code>.</p>
+<p>Con esta página se cierra la Fase 0. La Fase 1 es Fundamentos de matemáticas, y empieza por la intuición de álgebra lineal.</p>
+
+<p class="sigue">Fin de la Fase 0. Pide la Fase 1 cuando quieras seguir. El botón Siguiente está arriba a la derecha.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Las cuatro capas</title>
+<script>
+(function () {
+  function apply() {
+    var t = localStorage.getItem('theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  }
+  apply();
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'theme' || e.key === null) apply();
+  });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf5; --bg-surface: #f3f1e8; --ink: #1a1a1a; --ink-soft: #4a4a4a;
+  --ink-mute: #7a7a78; --rule-soft: rgba(26,26,26,.16); --blueprint: #3553ff;
+  --blueprint-tint: rgba(53,83,255,.08);
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-body: 'Source Serif 4', Georgia, serif;
+}
+[data-theme="dark"] {
+  --bg: #0a0d1a; --bg-surface: #131830; --ink: #e8e6dc; --ink-soft: #a8a6a0;
+  --ink-mute: #7a7878; --rule-soft: rgba(232,230,220,.18); --blueprint: #6b8eff;
+  --blueprint-tint: rgba(107,142,255,.12);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); }
+.pagina { max-width: 880px; margin: 0 auto; padding: 18px 16px 36px; }
+.pausa {
+  display: inline-flex; align-items: center; min-height: 44px; margin: 0 0 10px;
+  padding: 6px 12px; border: 1px solid var(--rule-soft); background: var(--bg);
+  color: var(--ink-soft); font-family: var(--font-mono); font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase; cursor: pointer;
+}
+.pausa:hover, .pausa[aria-pressed="true"] { color: var(--blueprint); border-color: var(--blueprint); background: var(--blueprint-tint); }
+.lf { border: 1px solid var(--rule-soft); background: var(--bg); }
+.lf-head {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  padding: 12px 16px; border-bottom: 1px solid var(--rule-soft);
+  font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-mute);
+}
+.lf-head b { color: var(--blueprint); font-weight: 500; }
+.lf-body { padding: 8px 16px 16px; }
+.lf-cap { font-size: .95rem; color: var(--ink-soft); line-height: 1.5; padding: 12px 16px; border-top: 1px solid var(--rule-soft); }
+svg { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 auto; }
+.fichas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.ficha {
+  font-family: var(--font-mono); font-size: .75rem; padding: 6px 8px;
+  border: 1px solid var(--rule-soft); background: var(--bg-surface); color: var(--ink-soft);
+}
+.ficha b { color: var(--blueprint); }
+</style>
+</head>
+<body>
+<main class="pagina">
+  <h1>Las cuatro capas</h1>
+  <button type="button" class="pausa" id="pausa" aria-pressed="false">Pausar animación</button>
+  <div class="lf">
+    <div class="lf-head">
+      <b>Las cuatro capas</b>
+      <span>Sistema, gestores, entornos y librerías se arman en orden</span>
+    </div>
+    <div class="lf-body">
+      <svg id="pila" viewBox="0 0 640 250" role="img" aria-label="Cuatro capas del entorno, de abajo hacia arriba">
+        <g id="c1" opacity="0" transform="translate(320 208)">
+          <rect x="-210" y="-17" width="420" height="34" rx="3" fill="var(--bg)" stroke="var(--ink-soft)" stroke-width="1.4"/>
+          <text x="-196" y="4" font-family="var(--font-mono,monospace)" font-size="11" fill="var(--ink)" text-anchor="start">1 · Sistema</text>
+          <text x="196" y="4" font-family="var(--font-mono,monospace)" font-size="10" fill="var(--ink-mute)" text-anchor="end">SO, drivers, Metal</text>
+          <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.04;0.12;0.93;1" dur="5.5s" repeatCount="indefinite"/>
+        </g>
+        <g id="c2" opacity="0" transform="translate(320 166)">
+          <rect x="-210" y="-17" width="420" height="34" rx="3" fill="var(--bg)" stroke="var(--ink-soft)" stroke-width="1.4"/>
+          <text x="-196" y="4" font-family="var(--font-mono,monospace)" font-size="11" fill="var(--ink)" text-anchor="start">2 · Gestores de paquetes</text>
+          <text x="196" y="4" font-family="var(--font-mono,monospace)" font-size="10" fill="var(--ink-mute)" text-anchor="end">uv, pnpm, cargo</text>
+          <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.13;0.21;0.93;1" dur="5.5s" repeatCount="indefinite"/>
+        </g>
+        <g id="c3" opacity="0" transform="translate(320 124)">
+          <rect x="-210" y="-17" width="420" height="34" rx="3" fill="var(--bg)" stroke="var(--ink-soft)" stroke-width="1.4"/>
+          <text x="-196" y="4" font-family="var(--font-mono,monospace)" font-size="11" fill="var(--ink)" text-anchor="start">3 · Entornos de ejecución</text>
+          <text x="196" y="4" font-family="var(--font-mono,monospace)" font-size="10" fill="var(--ink-mute)" text-anchor="end">Python, Node, Rust</text>
+          <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.22;0.30;0.93;1" dur="5.5s" repeatCount="indefinite"/>
+        </g>
+        <g id="c4" opacity="0" transform="translate(320 82)">
+          <rect x="-210" y="-17" width="420" height="34" rx="3" fill="var(--bg-surface)" stroke="var(--blueprint)" stroke-width="1.4"/>
+          <text x="-196" y="4" font-family="var(--font-mono,monospace)" font-size="11" fill="var(--blueprint)" text-anchor="start">4 · Librerías de IA</text>
+          <text x="196" y="4" font-family="var(--font-mono,monospace)" font-size="10" fill="var(--ink-mute)" text-anchor="end">torch, jax, transformers</text>
+          <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.31;0.39;0.93;1" dur="5.5s" repeatCount="indefinite"/>
+        </g>
+        <g opacity="0" transform="translate(320 42)">
+          <text x="0" y="0" font-family="var(--font-mono,monospace)" font-size="12" fill="var(--blueprint)" text-anchor="middle">python -c "import torch" · listo</text>
+          <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.50;0.58;0.93;1" dur="5.5s" repeatCount="indefinite"/>
+        </g>
+        <text x="320" y="242" font-family="var(--font-mono,monospace)" font-size="11" fill="var(--ink-mute)" text-anchor="middle">cada capa se apoya en la de abajo</text>
+      </svg>
+    </div>
+    <p class="lf-cap">El entorno se construye de abajo hacia arriba: primero el sistema operativo y el controlador de la GPU, después los gestores de paquetes, luego los entornos de ejecución y al final las librerías de IA. Si import torch falla, baja por la pila: la capa rota casi nunca es la que mostró el error.</p>
+    <p class="lf-cap">Siguiente, arriba a la derecha: Git y colaboración. Son 13 lecciones en esta fase.</p>
+  </div>
+  <div class="fichas">
+    <span class="ficha">Python <b>3.12.16</b></span>
+    <span class="ficha">Git <b>2.54.0</b></span>
+    <span class="ficha">Node <b>24.12</b></span>
+    <span class="ficha">pnpm <b>12.18</b></span>
+    <span class="ficha">Cargo <b>1.99.1</b></span>
+    <span class="ficha">Julia <b>1.13.3</b></span>
+    <span class="ficha">PyTorch <b>2.15.0</b></span>
+    <span class="ficha">Metal <b>sí</b></span>
+    <span class="ficha">CUDA <b>no</b></span>
+    <span class="ficha">Producto punto <b>14</b></span>
+  </div>
+</main>
+<script>
+(function () {
+  var svg = document.getElementById('pila');
+  var btn = document.getElementById('pausa');
+  var pausada = false;
+  btn.addEventListener('click', function () {
+    pausada = !pausada;
+    btn.setAttribute('aria-pressed', pausada ? 'true' : 'false');
+    btn.textContent = pausada ? 'Reanudar animación' : 'Pausar animación';
+    if (pausada && svg.pauseAnimations) svg.pauseAnimations();
+    else if (svg.unpauseAnimations) svg.unpauseAnimations();
+  });
+})();
+</script>
+</body>
+</html>

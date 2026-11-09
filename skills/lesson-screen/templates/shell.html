@@ -176,20 +176,20 @@ iframe {
 </head>
 <body>
 <header class="topbar">
-  <span class="brand">Lesson screen</span>
+  <span class="brand">Pantalla de la lección</span>
   <span class="screen-title" id="screenTitle"></span>
-  <span class="status" id="status"><span class="dot"></span><span id="statusText">Live</span></span>
-  <span class="stopped-note" id="stoppedNote">Ask your tutor to start the lesson screen again.</span>
+  <span class="status" id="status"><span class="dot"></span><span id="statusText">En vivo</span></span>
+  <span class="stopped-note" id="stoppedNote">Pídele al tutor que vuelva a abrir la pantalla.</span>
   <span class="spacer"></span>
-  <button type="button" class="pill-latest" id="latestPill">Latest</button>
-  <button type="button" id="prevBtn" aria-label="Previous screen">&larr; Prev</button>
-  <button type="button" id="nextBtn" aria-label="Next screen">Next &rarr;</button>
-  <select id="history" aria-label="Screen history"></select>
-  <button type="button" id="themeBtn" aria-label="Switch theme">Theme</button>
+  <button type="button" class="pill-latest" id="latestPill">Última</button>
+  <button type="button" id="prevBtn" aria-label="Pantalla anterior">&larr; Anterior</button>
+  <button type="button" id="nextBtn" aria-label="Pantalla siguiente">Siguiente &rarr;</button>
+  <select id="history" aria-label="Historial de pantallas"></select>
+  <button type="button" id="themeBtn" aria-label="Cambiar tema">Tema</button>
 </header>
 <main class="stage">
-  <iframe id="frame" title="Lesson screen content"></iframe>
-  <div class="empty" id="empty"><p>Waiting for your tutor. The first screen appears here when the lesson starts.</p></div>
+  <iframe id="frame" title="Contenido de la lección"></iframe>
+  <div class="empty" id="empty"><p>Esperando al tutor. La primera pantalla aparece aquí cuando empieza la lección.</p></div>
 </main>
 <script>
 (function () {
@@ -215,15 +215,15 @@ iframe {
   function setStatus(state) {
     statusEl.className = 'status is-' + state;
     if (state === 'live') {
-      statusText.textContent = 'Live';
+      statusText.textContent = 'En vivo';
       stopped = false;
       stoppedNote.classList.remove('is-shown');
       failCount = 0;
     } else if (state === 'reconnecting') {
-      statusText.textContent = 'Reconnecting';
+      statusText.textContent = 'Reconectando';
       stoppedNote.classList.remove('is-shown');
     } else {
-      statusText.textContent = 'Stopped';
+      statusText.textContent = 'Detenida';
       stopped = true;
       stoppedNote.classList.add('is-shown');
     }
@@ -280,10 +280,12 @@ iframe {
     screens = list || [];
     renderEmpty();
     var last = latest();
-    if (!pinned && last) show(last.name);
-    if (pinned && current && !screens.some(function (s) { return s.name === current; })) {
+    var primero = screens.length ? screens[0] : null;
+    var sigueAbierta = current && screens.some(function (s) { return s.name === current; });
+    if (!current && primero) show(primero.name);
+    else if (current && !sigueAbierta) {
       pinned = false;
-      if (last) show(last.name);
+      if (primero) show(primero.name);
     }
     renderHistory();
     renderPill();
@@ -356,7 +358,7 @@ iframe {
     var next = now === 'dark' ? 'light' : 'dark';
     localStorage.setItem('theme', next);
     document.documentElement.setAttribute('data-theme', next);
-    themeBtn.textContent = 'Theme: ' + next;
+    themeBtn.textContent = 'Tema: ' + (next === 'dark' ? 'oscuro' : 'claro');
   });
 
   window.addEventListener('storage', function (e) {
@@ -364,10 +366,10 @@ iframe {
     var t = localStorage.getItem('theme');
     if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', t);
-    themeBtn.textContent = 'Theme: ' + t;
+    themeBtn.textContent = 'Tema: ' + (t === 'dark' ? 'oscuro' : 'claro');
   });
   var initial = document.documentElement.getAttribute('data-theme') || 'light';
-  themeBtn.textContent = 'Theme: ' + initial;
+  themeBtn.textContent = 'Tema: ' + (initial === 'dark' ? 'oscuro' : 'claro');
   renderEmpty();
   connect();
 })();

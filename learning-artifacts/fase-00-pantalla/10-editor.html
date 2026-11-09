@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+(function () {
+  function apply() {
+    var t = localStorage.getItem('theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  }
+  apply();
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'theme' || e.key === null) apply();
+  });
+})();
+</script>
+<style>
+:root {
+  --bg:#fafaf5; --bg-surface:#f3f1e8; --ink:#1a1a1a; --ink-soft:#4a4a4a;
+  --ink-mute:#7a7a78; --rule:rgba(26,26,26,.16); --blue:#3553ff;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --font-body:'Source Serif 4',Georgia,serif;
+}
+[data-theme="dark"] {
+  --bg:#0a0d1a; --bg-surface:#131830; --ink:#e8e6dc; --ink-soft:#a8a6a0;
+  --ink-mute:#7a7878; --rule:rgba(232,230,220,.18); --blue:#6b8eff;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); font-size:1.05rem; line-height:1.55; }
+main { max-width:760px; margin:0 auto; padding:28px 22px 64px; }
+.ceja { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); }
+h1 { font-size:2rem; line-height:1.2; margin:.3em 0 .4em; }
+.gancho { font-size:1.2rem; color:var(--ink-soft); margin-top:0; }
+h2 { font-size:1.25rem; margin:1.4em 0 .4em; }
+p { margin:.55em 0; }
+ul, ol { padding-left:1.2em; }
+li { margin:.25em 0; }
+pre {
+  background:var(--bg-surface); border:1px solid var(--rule); padding:12px 14px;
+  overflow-x:auto; font-family:var(--font-mono); font-size:.82rem; line-height:1.45;
+}
+code { font-family:var(--font-mono); font-size:.9em; }
+table { border-collapse:collapse; width:100%; margin:.8em 0; font-size:.95rem; }
+th, td { border-bottom:1px solid var(--rule); text-align:left; padding:6px 8px; vertical-align:top; }
+th { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-mute); font-weight:500; }
+.sigue { margin-top:2em; padding-top:1em; border-top:1px solid var(--rule); color:var(--ink-soft); }
+</style>
+</head>
+<body>
+<main>
+<p class="ceja">Fase 0 · Lección 8 de 13 · Construir · unos 20 min</p>
+<h1>El editor</h1>
+
+<p class="gancho">El editor es el copiloto. Se configura una vez para que deje de estorbar.</p>
+<h2>El problema</h2>
+<p>Vas a pasar miles de horas escribiendo Python, corriendo cuadernos, depurando bucles de entrenamiento y entrando por SSH a máquinas con GPU. Sin autocompletado, sin tipos y sin formato, cada sesión paga ese roce.</p>
+<h2>Cinco piezas</h2>
+<ol>
+<li>El editor base. El curso recomienda VS Code: gratis, en todos los sistemas, con cuadernos.</li>
+<li>Extensiones: Python, Pylance, Jupyter, GitLens, Remote SSH y el depurador.</li>
+<li>Ajustes de IA: formato automático, revisión de tipos, y una regla cerca de la columna 88.</li>
+<li>La terminal integrada, para correr scripts y mirar la GPU.</li>
+<li>Desarrollo remoto, para entrar por SSH a una máquina con GPU.</li>
+</ol>
+<pre>code --version
+code --install-extension ms-python.python
+code --install-extension ms-python.vscode-pylance
+code --install-extension ms-toolsai.jupyter
+code --install-extension eamodio.gitlens
+code --install-extension ms-vscode-remote.remote-ssh</pre>
+<p>En macOS, si <code>code</code> no aparece, en VS Code se abre la paleta de comandos con Cmd+Mayús+P y se elige Install 'code' command in PATH.</p>
+<p>Cursor, el editor en el que estás ahora, ya cubre la edición con agente. El flujo del curso sigue siendo el mismo: el código vive en el repositorio, la terminal corre las lecciones, y el entorno es <code>.venv</code>.</p>
+
+<p class="sigue">Siguiente: Gestión de datos. El botón Siguiente está arriba a la derecha.</p>
+</main>
+</body>
+</html>
