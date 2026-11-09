@@ -11,6 +11,9 @@ Basado en las superficies del curso: agent loop, tool firewall, traces, workbenc
 ```bash
 cd learning-artifacts/gmusic-agent-workbench
 python3 -m workbench run --demo
+python3 -m workbench run --demo --with-rag-gate
+python3 -m workbench rag-eval
+python3 -m workbench rag-eval --candidate candidate_regress.json  # exit 1
 python3 -m unittest discover -s tests -v
 ```
 
@@ -35,9 +38,13 @@ gmusic-agent-workbench/
 └── outputs/                # workspace + evidence (generado)
 ```
 
-## Next slices (no en este MVP)
+## RAG regression gate (0.2.0)
 
-- Integrar grader de `retrieval-evaluation-lab` para respuestas con citas
+Fixtures en `fixtures/retrieval/` (queries Gmusic: refunds, tuning, cancel).
+Compara baseline vs candidate; falla si alguna query pierde NDCG.
+
+## Next slices
+
 - Conectar `agent-trace-debugger` sobre el JSONL
 - MCP tools (`mcp-at-scale`) y jobs durables
 - Live planner con modelo (API key) detrás del mismo firewall

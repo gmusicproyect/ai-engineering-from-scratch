@@ -1,0 +1,20 @@
+{
+  "refund-policy": {
+    "policy-refunds": 3,
+    "policy-billing": 2,
+    "lesson-scales": 0,
+    "marketing-home": 0
+  },
+  "how-to-tune-guitar": {
+    "lesson-tuning": 3,
+    "lesson-scales": 1,
+    "policy-refunds": 0,
+    "marketing-home": 0
+  },
+  "cancel-subscription": {
+    "policy-billing": 3,
+    "policy-refunds": 2,
+    "lesson-tuning": 0,
+    "marketing-home": 1
+  }
+}

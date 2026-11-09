@@ -13,6 +13,6 @@
 | 02-firewall-loop | Done | ok | 2026-11-09 | approval + scope reject |
 | 03-evidence-bundle | Done | ok | 2026-11-09 | trace/audit/cost/handoff |
 | 04-verify | Done | 7/7 tests | 2026-11-09 | `python3 -m workbench run --demo` |
-| next-rag-eval | Next | | | Wire retrieval-evaluation-lab |
-| next-trace-debugger | Planned | | | Consume trace.jsonl |
+| 05-rag-eval | Done | gate ok + regress fails | 2026-11-09 | NDCG release gate wired |
+| next-trace-debugger | Next | | | Consume trace.jsonl |
 | next-live-planner | Planned | | | Model behind same firewall |

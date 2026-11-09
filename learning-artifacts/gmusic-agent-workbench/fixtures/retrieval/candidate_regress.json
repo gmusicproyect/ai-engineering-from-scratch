@@ -1,0 +1,5 @@
+{
+  "refund-policy": ["lesson-scales", "marketing-home", "policy-refunds"],
+  "how-to-tune-guitar": ["marketing-home", "lesson-scales", "lesson-tuning"],
+  "cancel-subscription": ["marketing-home", "lesson-tuning", "policy-billing"]
+}

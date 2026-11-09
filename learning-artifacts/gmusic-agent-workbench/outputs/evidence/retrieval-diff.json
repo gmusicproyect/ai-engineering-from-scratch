@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "k": 3,
+  "baseline": {
+    "queries": {
+      "refund-policy": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "rr": 1.0,
+        "ndcg": 1.0,
+        "unjudged": 0.0
+      },
+      "how-to-tune-guitar": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "rr": 1.0,
+        "ndcg": 1.0,
+        "unjudged": 0.0
+      },
+      "cancel-subscription": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "rr": 1.0,
+        "ndcg": 1.0,
+        "unjudged": 0.0
+      }
+    },
+    "mean": {
+      "precision": 0.7777777777777777,
+      "recall": 1.0,
+      "rr": 1.0,
+      "ndcg": 1.0
+    }
+  },
+  "candidate": {
+    "queries": {
+      "refund-policy": {
+        "precision": 0.3333333333333333,
+        "recall": 0.5,
+        "rr": 0.3333333333333333,
+        "ndcg": 0.3935773014954859,
+        "unjudged": 0.0
+      },
+      "how-to-tune-guitar": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "rr": 0.5,
+        "ndcg": 0.5413402936435214,
+        "unjudged": 0.0
+      },
+      "cancel-subscription": {
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "rr": 1.0,
+        "ndcg": 0.47909091485969846,
+        "unjudged": 0.0
+      }
+    },
+    "mean": {
+      "precision": 0.5555555555555555,
+      "recall": 0.7222222222222222,
+      "rr": 0.611111111111111,
+      "ndcg": 0.4713361699995686
+    }
+  },
+  "deltas": {
+    "refund-policy": {
+      "baseline_ndcg": 1.0,
+      "candidate_ndcg": 0.3935773014954859,
+      "delta_ndcg": -0.606422698504514
+    },
+    "how-to-tune-guitar": {
+      "baseline_ndcg": 1.0,
+      "candidate_ndcg": 0.5413402936435214,
+      "delta_ndcg": -0.45865970635647857
+    },
+    "cancel-subscription": {
+      "baseline_ndcg": 1.0,
+      "candidate_ndcg": 0.47909091485969846,
+      "delta_ndcg": -0.5209090851403015
+    }
+  },
+  "regressions": [
+    "refund-policy",
+    "how-to-tune-guitar",
+    "cancel-subscription"
+  ],
+  "pass": false,
+  "mean_delta_ndcg": -0.5286638300004314
+}
