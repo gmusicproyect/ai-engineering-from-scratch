@@ -35,25 +35,29 @@ Recorrer el currículo fase por fase. En cada lección: entender qué enseña, q
 | 18 | Ética, seguridad y alineación | Do | 31 |
 | 19 | Proyectos finales | Do | 620 |
 
+## Siguiente
+- Fase 3, lección 02: Redes de varias capas y paso hacia adelante
+- Comando: `.venv/bin/python phases/03-deep-learning-core/02-multi-layer-networks/code/main.py`
+- Docs: `phases/03-deep-learning-core/02-multi-layer-networks/docs/en.md`
+
 ## Progress log
 | Date | Lesson | Quiz | Note |
 |------|--------|------|------|
-| 2026-11-09 | 00-setup-and-tooling/01-dev-environment | 0/3 | Pidió instalar el stack completo y que yo diera las respuestas. Queda en repaso. |
-| 2026-11-09 | 00-setup-and-tooling/02-git-and-collaboration | — | El repositorio ya cumple la lección: .gitignore excluye pesos y el historial muestra cómo se agregaron las lecciones. No se pregunta más. |
-| 2026-11-09 | 03-deep-learning-core/01-the-perceptron | — | Se corrió perceptron.py. AND, OR y NOT convergen. Un perceptrón no resuelve XOR. Dos capas sí. |
+| 2026-11-09 | 00-setup-and-tooling/01-dev-environment | 0/3 | Stack instalado. Preflight 2/2 PASS. Quiz no aprobado; queda en repaso. |
+| 2026-11-09 | 00-setup-and-tooling/02-git-and-collaboration | — | `.gitignore` ya excluye pesos. Sin push al repo del autor. |
+| 2026-11-09 | 03-deep-learning-core/01-the-perceptron | — | `perceptron.py` exit 0. AND/OR/NOT OK. XOR 1 capa falla. XOR 2 capas OK. |
 
 ## Review queue
 - 00-setup-and-tooling/01-dev-environment — orden de las cuatro capas, para qué sirve uv, cómo comprobar la GPU
 
 ## Registro
-Hecho el 2026-11-09. El estudio se implementa en el repositorio, sin quiz.
+Hecho el 2026-11-09. El estudio se implementa en el repositorio, sin quiz. Método de trabajo: `instruccionesAgentes` instalado en `.cursor/rules/` y estado en `.agents/PROJECT_STATUS.md`.
 
 | Qué | Evidencia |
 |-----|-----------|
 | Curso clonado | `origin` = https://github.com/rohitg00/ai-engineering-from-scratch.git, rama `main` |
-| Entorno | `.venv` con Python 3.12.16, NumPy 2.5.4, Matplotlib 3.11.2, Jupyter, PyTorch 2.15.0. Metal sí. CUDA no. También wget, pnpm 12.18.0, cargo 1.99.1 y Julia 1.13.3 |
-| Preflight | `.venv/bin/python phases/00-setup-and-tooling/01-dev-environment/code/verify.py --route beginner --show-later` terminó 2/2 y el resto en PASS |
-| Git de la lección 2 | `.gitignore` ya excluye `*.pt`, `*.pth`, `*.safetensors`, `models/`, `checkpoints/` y `.venv/`. No hay push: `origin` es el repositorio del autor |
-| Perceptrón | `.venv/bin/python phases/03-deep-learning-core/01-the-perceptron/code/perceptron.py` salió 0. AND, OR y NOT convergieron. XOR con una neurona falló. XOR con dos capas quedó bien |
-| Pantalla en español | 13 páginas de la Fase 0 en `.lesson-screen/screens/`, copiadas a `learning-artifacts/fase-00-pantalla/` para que Git las guarde |
-| Forma de estudio | Una lección por vez. Fase 3 en curso. Fases 0, 1 y 2 quedan en Skip hasta que se pidan |
+| Entorno | `.venv` Python 3.12.16, NumPy, Matplotlib, Jupyter, PyTorch 2.15.0. Metal sí. CUDA no. |
+| Preflight | `.venv/bin/python phases/00-setup-and-tooling/01-dev-environment/code/verify.py --route beginner --show-later` → 2/2 PASS |
+| Perceptrón | `.venv/bin/python phases/03-deep-learning-core/01-the-perceptron/code/perceptron.py` → exit 0 |
+| Pantallas Fase 0 | 13 HTML en `learning-artifacts/fase-00-pantalla/` |
+| Protocolo | `.cursor/rules/01-identidad-del-ejecutor.mdc`, `02-protocolo-criterio-fable.mdc`, `loop.mdc` |

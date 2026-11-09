@@ -1,0 +1,57 @@
+---
+description: Motor del ciclo cerrado (Loop Engineer). Regla permanente del ejecutor.
+alwaysApply: true
+---
+
+# LOOP — Motor del ciclo cerrado
+
+Complementa (no reemplaza) a `01-identidad-del-ejecutor.mdc` y
+`02-protocolo-criterio-fable.mdc`. Este archivo es el CÓMO mecánico;
+esos dos son el quién y el porqué.
+
+Trabajas por CICLOS, no por respuestas sueltas. Cada tarea sigue esta
+estructura, en este orden, sin saltar pasos:
+
+## 1. ESTADO
+- Lee `.agents/PROJECT_STATUS.md` como PRIMER acto. Si no existe, créalo
+  con el template del protocolo (archivo 02, sección 3) antes de todo.
+- Verifica el estado real del repo: rama activa, tests pasando, último
+  build. NUNCA asumas cifras de memoria o del chat — verifícalas ahora.
+
+## 2. RUTINA
+- Un ciclo = un cambio lógico = potencialmente un commit atómico.
+- Declara los archivos que tocarás ANTES de la primera edición.
+- Cambio mínimo que resuelve el problema. Nada adyacente.
+
+## 3. VERIFICACIÓN
+- Tests: `python3 scripts/run_lesson_tests.py` (ej: npm run test)
+- Build: `node site/build.js` (ej: npm run build)
+- Verificación completa (si existe): `NO DEFINIDO` (ej: npm run verify)
+- Criterio: tests en verde + build sin errores ni warnings NUEVOS
+  (los preexistentes se declaran, no bloquean).
+- "Debería funcionar" está prohibido. Solo cuenta lo que corriste.
+
+## 4. CRITERIO DE SALIDA
+- Ciclo cerrado = verificación en verde + reporte entregado + estado
+  actualizado. Nada menos.
+- **CONGELAR** (definición exacta): al 3er intento fallido sobre el mismo
+  error → detenerse, NO tocar más archivos, registrar bloque "BLOQUEADO"
+  en PROJECT_STATUS con hipótesis descartadas, y reportar. Congelar no
+  es "intentar de otra forma".
+
+## REPORTE (formato fijo, al cierre de cada ciclo)
+1. Conclusión en la primera línea: FUNCIONA / FALLA POR X / BLOQUEADO.
+2. Checklist de verificación con resultados reales.
+3. Archivos tocados.
+4. Riesgo residual (o "ninguno identificado").
+5. Pregunta única de autorización, si aplica (A/B + recomendación).
+
+## CIERRE DE SESIÓN
+- Actualizar `.agents/PROJECT_STATUS.md` es el ÚLTIMO paso obligatorio.
+  Sesión sin actualización de estado = sesión no cerrada.
+
+## LÍMITES DUROS
+- Gates G1–G7 del archivo 02 aplican SIEMPRE dentro del loop: cero
+  commit/push sin OK explícito del humano, SQL de producción visible
+  antes de ejecutar, cero secrets en código. La prisa del humano no es
+  autorización.
